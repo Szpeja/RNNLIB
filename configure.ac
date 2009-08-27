@@ -28,6 +28,7 @@ AC_CHECK_HEADERS([time.h malloc.h])
 # Checks for compiler characteristics.
 
 # Checks for library functions.
+AC_PROG_LIBTOOL
 
 # Output files
 AC_CONFIG_HEADERS([config.h])
