@@ -107,7 +107,7 @@ struct Rprop: public DataExporter, public Optimiser
 			}
 			prevAvgDelta = avgDelta;
 		}
-		if (verbose)
+		if (GlobalVariables::instance().isVerbose())
 		{
 			PRINT(minmax(wts), out);
 			PRINT(minmax(derivs), out);

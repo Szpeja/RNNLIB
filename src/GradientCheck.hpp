@@ -21,7 +21,7 @@ along with RNNLIB.  If not, see <http://www.gnu.org/licenses/>.*/
 #include "WeightContainer.hpp"
 #include "Mdrnn.hpp"
 
-extern bool runningGradTest;
+//extern bool runningGradTest;
 
 struct GradientCheck
 {
@@ -49,7 +49,7 @@ struct GradientCheck
 			verbose(verb),
 			conns(WeightContainer::instance().connections)
 	{		
-		runningGradTest = true;
+		GlobalVariables::instance().setRunningGradTest (true);
 		PRINT (perturbation, out);
 		PRINT (sigFigs, out);
 		PRINT (verbose, out);
@@ -66,7 +66,7 @@ struct GradientCheck
 			out << "GRADIENT CHECK FAILED!" << endl;
 			exit(0);
 		}
-		runningGradTest = false;
+		GlobalVariables::instance().setRunningGradTest (false);
 	}
 	bool check_layer(const string& name)
 	{

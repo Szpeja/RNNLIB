@@ -23,7 +23,7 @@ along with RNNLIB.  If not, see <http://www.gnu.org/licenses/>.*/
 #include "DataExporter.hpp"
 
 using namespace std;
-extern bool verbose;
+//extern bool verbose;
 
 struct SteepestDescent: public DataExporter, public Optimiser
 {
@@ -58,7 +58,7 @@ struct SteepestDescent: public DataExporter, public Optimiser
 			deltas[i] = delta;
 			wts[i] += delta;
 		}
-		if (verbose)
+		if (GlobalVariables::instance().isVerbose())
 		{
 			out << "weight updates:" << endl;
 			PRINT(minmax(wts), out);

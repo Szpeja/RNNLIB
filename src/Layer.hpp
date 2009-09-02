@@ -22,7 +22,7 @@ along with RNNLIB.  If not, see <http://www.gnu.org/licenses/>.*/
 #include "SeqBuffer.hpp"
 #include "DataExporter.hpp"
 
-extern bool verbose;
+//extern bool verbose;
 
 struct Layer: public DataExporter
 {

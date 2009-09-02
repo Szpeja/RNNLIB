@@ -524,7 +524,7 @@ struct DataList
 	{
 		PRINT(numSequences, out);
 		PRINT(numTimesteps, out);
-		if(verbose)
+		if(GlobalVariables::instance().isVerbose())
 		{
 			out << "avg timesteps/seq = " << (double) numTimesteps / (double)numSequences << endl;
 		}
@@ -535,7 +535,7 @@ struct DataList
 		out << filenames.size() << " filenames"<< endl;
 		print_range(out, filenames, string("\n"));
 		out << endl;
-		if (verbose)
+		if (GlobalVariables::instance().isVerbose())
 		{
 			out << "inputSize = " << headers.front().inputSize << endl;
 			out << "outputSize = " << headers.front().outputSize << endl;

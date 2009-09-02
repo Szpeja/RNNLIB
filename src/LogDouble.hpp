@@ -20,41 +20,42 @@ along with RNNLIB.  If not, see <http://www.gnu.org/licenses/>.*/
 
 #include <math.h>
 #include <iostream>
+#include <Helpers.hpp>
 
 using namespace std;
 
-static const double expLimit = log(numeric_limits<double>::max());
-static const double negExpLimit = log(numeric_limits<double>::min());
-static const double logZero = -infinity;
+// static const double expLimit = log(numeric_limits<double>::max());
+// static const double negExpLimit = log(numeric_limits<double>::min());
+// static const double logZero = -infinity;
 
 static double safe_exp (double x)
 {
-	if (x == logZero)
+	if (x == GlobalVariables::instance().getLogZero())
 	{
 		return 0;
 	}
-	else if (x > expLimit)
+	else if (x > GlobalVariables::instance().getExpLimit())
 	{
-		return doubleMax;
+		return GlobalVariables::instance().getDoubleMax();
 	}
 	return exp(x);
 }
 
 static double safe_log(double x)
 {
-	if (x < doubleMin)
+	if (x < GlobalVariables::instance().getDoubleMin())
 	{
-		return logZero;
+		return GlobalVariables::instance().getLogZero();
 	}
 	return log(x);
 }
 static double log_add(double x, double y)
 {
-	if (x == logZero)
+	if (x == GlobalVariables::instance().getLogZero())
 	{
 		return y;
 	}
-	else if (y == logZero)
+	else if (y == GlobalVariables::instance().getLogZero())
 	{
 		return x;
 	}
@@ -63,7 +64,7 @@ static double log_add(double x, double y)
 		swap(x, y);
 	}
 	double diff = y - x;
-	if (diff < negExpLimit)
+	if (diff < GlobalVariables::instance().getNegExpLimit())
 	{
 		return x;
 	}
@@ -71,13 +72,13 @@ static double log_add(double x, double y)
 }
 static double log_subtract(double x, double y)
 {
-	if (y == logZero)
+	if (y == GlobalVariables::instance().getLogZero())
 	{
 		return x;
 	}	
 	assert (x >= y);
 	double diff = y - x;
-	if (diff < negExpLimit)
+	if (diff < GlobalVariables::instance().getNegExpLimit())
 	{
 		return x;
 	}
@@ -85,19 +86,19 @@ static double log_subtract(double x, double y)
 }
 static double log_multiply(double x, double y)
 {
-	if (x == logZero || y == logZero)
+	if (x == GlobalVariables::instance().getLogZero() || y == GlobalVariables::instance().getLogZero())
 	{
-		return logZero;
+		return GlobalVariables::instance().getLogZero();
 	}
 	return x + y;
 }
 static double log_divide(double x, double y)
 {
-	if (x == logZero)
+	if (x == GlobalVariables::instance().getLogZero())
 	{
-		return logZero;
+		return GlobalVariables::instance().getLogZero();
 	}
-	assert(y != logZero);
+	assert(y != GlobalVariables::instance().getLogZero());
 	return x - y;
 }
 class LogDouble
@@ -193,7 +194,7 @@ bool operator>= (LogDouble log1, LogDouble log2)
 }
 ostream& operator << (ostream& out, const LogDouble& l)
 {
-	out << (l.log == logZero ? 0 : l.log);
+	out << (l.log == GlobalVariables::instance().getLogZero() ? 0 : l.log);
 	return out;
 }
 istream& operator >> (istream& in, LogDouble& l)

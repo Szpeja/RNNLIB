@@ -84,7 +84,7 @@ struct DecodingLayer: public TranscriptionLayer
 			}
 		}
 		this->out << dict.size() << " words read" << endl;
-		if (verbose)
+		if (GlobalVariables::instance().isVerbose())
 		{
 			loop(const PSPW& p, dict)
 			{
@@ -333,7 +333,7 @@ struct DecodingLayer: public TranscriptionLayer
 			}
 		}
 		vector<Word*>& targetWords = data_seq_to_words(seq);
-		if (verbose)
+		if (GlobalVariables::instance().isVerbose())
 		{
 			this->out << "target word sequence (length " << targetWords.size() << "):" << endl << targetWords << endl;
 			set<string> uniqueWords;

@@ -305,7 +305,7 @@ template <class CI, class CO, class G> struct LstmLayer: public Layer
 		}
 		
 		//constrain errors to be in [-1,1] for stability
-		if (!runningGradTest)
+		if (!GlobalVariables::instance().isRunningGradTest())
 		{
 			bound_range(inErrs, -1.0, 1.0);
 		}

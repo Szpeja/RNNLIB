@@ -55,11 +55,11 @@ struct Logistic
 		if (runningGradTest)
 		{
 #endif
-			if (x < -expLimit)
+			if (x < -GlobalVariables::instance().getExpLimit())
 			{
 				return 1;
 			}
-			else if (x > expLimit)
+			else if (x > GlobalVariables::instance().getExpLimit())
 			{
 				return 0;
 			}
@@ -131,13 +131,13 @@ struct Max2min0
 {
 	static double fn(double x)
 	{
-		if (x < -expLimit)
+		if (x < -GlobalVariables::instance().getExpLimit())
 		{
-			x = -expLimit;
+			x = -GlobalVariables::instance().getExpLimit();
 		}
-		else if (x > expLimit)
+		else if (x > GlobalVariables::instance().getExpLimit())
 		{ 
-			x = expLimit;
+			x = GlobalVariables::instance().getExpLimit();
 		}
 		return (2 * Logistic::fn(x));
 	}

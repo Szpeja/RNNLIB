@@ -102,7 +102,7 @@ struct ClassificationLayer: public SoftmaxLayer
 				if (classTargets[i])
 				{
 					this->errorMap["_" + labels.left.at(i)] = classErrors[i] / numTargets;
-					if(verbose)
+					if(GlobalVariables::instance().isVerbose())
 					{
 						vector<int>& v = confusionMatrix[i];
 						loop(int j, indices(v))
@@ -116,7 +116,7 @@ struct ClassificationLayer: public SoftmaxLayer
 				}
 			}
 		}
-		if (verbose)
+		if (GlobalVariables::instance().isVerbose())
 		{
 			out << "sorted log probs:" << endl;
 			if (this->num_seq_dims() == 0)

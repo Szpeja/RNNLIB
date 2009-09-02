@@ -234,7 +234,7 @@ struct TranscriptionLayer: public SoftmaxLayer
 		ERR(deletions);
 		ERR(insertions);
 		ERR(ctcError);
-		if (verbose)
+		if (GlobalVariables::instance().isVerbose())
 		{
 			out << "target label sequence (length " << seq.labelSeq.size() << "):" << endl << label_seq_to_str(seq.labelSeq, labels) << endl;
 			out << "output label sequence (length " << outputLabelSeq.size() << "):" << endl << label_seq_to_str(outputLabelSeq, labels) << endl;

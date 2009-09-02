@@ -118,12 +118,58 @@ typedef const tuple<int, int>& TII;
 typedef const tuple<int, set<int>&>& TISETI;
 
 //global variables
-static const double doubleMax = numeric_limits<double>::max();
-static const double doubleMin = numeric_limits<double>::min();
-static const double infinity = numeric_limits<double>::infinity();
-static bool runningGradTest = false;
-static bool verbose = false;
-static ostream& COUT = cout;
+// static const double doubleMax = numeric_limits<double>::max();
+// static const double doubleMin = numeric_limits<double>::min();
+// static const double infinity = numeric_limits<double>::infinity();
+// static bool runningGradTest = false;
+// static bool verbose = false;
+//static ostream& COUT = cout;
+
+//singleton added by Sergio - only one instance of this class is possible
+class GlobalVariables { 
+ private:
+	double doubleMax;
+	double doubleMin;
+	double infinity;
+	bool runningGradTest;
+	bool verbose;
+	double expLimit;
+	double negExpLimit;
+	double logZero;
+ public:
+	static GlobalVariables& instance() 
+	{
+		static GlobalVariables inst;
+		return inst;
+	}
+	double getDoubleMax () { return doubleMax; }
+	double getDoubleMin () { return doubleMin; }
+	double getInfinity () { return infinity; }
+	double getExpLimit () { return expLimit; }
+	double getNegExpLimit () { return negExpLimit; }
+	double getLogZero () { return logZero; }
+	bool isRunningGradTest () { return runningGradTest; }
+	bool isVerbose () { return verbose; }
+	void setRunningGradTest (bool val) { runningGradTest = val; }
+	void setVerbose (bool val) { verbose = val; }
+	
+ protected:
+	GlobalVariables() {
+		doubleMax = numeric_limits<double>::max();
+		doubleMin = numeric_limits<double>::min();
+		infinity = numeric_limits<double>::infinity();
+		expLimit = log(numeric_limits<double>::max());
+		negExpLimit = log(numeric_limits<double>::min());
+		logZero = -infinity;
+		verbose = false;
+		runningGradTest = false;
+	}
+	virtual ~GlobalVariables() {}
+	GlobalVariables(const GlobalVariables&);                 // Prevent copy-construction
+	GlobalVariables& operator=(const GlobalVariables&);      // Prevent assignment
+
+};
+
 
 #define PRINT(x, o) ((o) << boolalpha << #x " = " << (x) << endl)
 #define PRINTN(x, o) (o) << boolalpha << #x ":" << endl; print_range((o), (x), string("\n")); (o) << endl

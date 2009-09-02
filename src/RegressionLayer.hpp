@@ -53,7 +53,7 @@ struct RegressionLayer: public LinearOutputLayer
 				sumSquaresError += error * error;
 			}
 		}
-		if (verbose && (this->outputActivations.seq_size() == 1)) 
+		if (GlobalVariables::instance().isVerbose() && (this->outputActivations.seq_size() == 1)) 
 		{
 			out << "target pattern: " << seq.targetPatterns.data << endl;
 			out << "output pattern: " << this->outputActivations.data << endl;

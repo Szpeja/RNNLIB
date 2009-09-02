@@ -28,7 +28,7 @@ along with RNNLIB.  If not, see <http://www.gnu.org/licenses/>.*/
 typedef boost::iostreams::tee_device<ostream, ofstream> TeeDev;
 typedef boost::iostreams::stream<TeeDev> TeeStream;
 		
-extern bool verbose;
+//extern bool verbose;
 vector<string> validDatasets = list_of<string>("train")("test")("val");
 
 int main(int argc, char* argv[])
@@ -62,7 +62,7 @@ int main(int argc, char* argv[])
 	bool display = conf.get<bool>("display", false);
 	vector<int> jacobianCoords = conf.get_list<int>("jacobianCoords");
 	bool gradCheck = conf.get<bool>("gradCheck", false);
-	verbose = conf.get<bool>("verbose", false);
+	GlobalVariables::instance().setVerbose (conf.get<bool>("verbose", false));
 	int displaySequence = conf.get<int>("sequence", 0);
 	string dataset = conf.get<string>("dataset", "train");
 	check(in(validDatasets, dataset), 

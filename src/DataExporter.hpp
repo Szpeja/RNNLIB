@@ -28,7 +28,7 @@ along with RNNLIB.  If not, see <http://www.gnu.org/licenses/>.*/
 #define SAVE(x) (save (x, #x))
 #define DISPLAY(x) (display (x, #x))
 
-extern bool verbose;
+//extern bool verbose;
 
 struct Val
 {
@@ -195,7 +195,7 @@ struct DataExporter: public Named
 		loop(PSPV& val, saveVals)
 		{
 			string lookup = name + "_" + val.first;
-			if (verbose)
+			if (GlobalVariables::instance().isVerbose())
 			{
 				out << "loading "<< name << "." << val.first << endl;
 			}

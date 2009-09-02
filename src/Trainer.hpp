@@ -27,7 +27,7 @@ along with RNNLIB.  If not, see <http://www.gnu.org/licenses/>.*/
 #include "DatasetErrors.hpp"
 
 using namespace std;
-extern bool verbose;
+//extern bool verbose;
 #ifdef OP_TRACKING
 	extern unsigned long long matrixOps;
 #endif
@@ -136,7 +136,7 @@ struct Trainer: public DataExporter
 				{
 					seq = add_input_noise(seq);
 				}
-				if (verbose)
+				if (GlobalVariables::instance().isVerbose())
 				{
 					out << "data sequence:" << endl;
 					out << "file = " << trainFiles.dataset->filename << endl;
@@ -145,7 +145,7 @@ struct Trainer: public DataExporter
 				}
 				net->train(*seq);
 				trainErrors.add_seq_errors(netErrors, netNormFactors);
-				if (verbose)
+				if (GlobalVariables::instance().isVerbose())
 				{
 					net->print_output_shape(out);
 					out << "errors:" << endl;
@@ -156,7 +156,7 @@ struct Trainer: public DataExporter
 					update_weights();
 					seqsSinceWeightUpdate = 0;
 				}
-				if (verbose)
+				if (GlobalVariables::instance().isVerbose())
 				{
 					out << endl;
 				}
@@ -346,7 +346,7 @@ struct Trainer: public DataExporter
 		errors.clear();
 		for (DataSequence* seq = data.start(); seq; seq = data.next_sequence())
 		{
-			if (verbose)
+			if (GlobalVariables::instance().isVerbose())
 			{					
 				out << "data sequence:" << endl;
 				out << "file =" << data.dataset->filename << endl;
@@ -355,7 +355,7 @@ struct Trainer: public DataExporter
 			}			
 			net->calculate_errors(*seq);
 			errors.add_seq_errors(netErrors, netNormFactors);
-			if (verbose)
+			if (GlobalVariables::instance().isVerbose())
 			{
 				net->print_output_shape(out);
 				out << "errors:" << endl;

@@ -78,7 +78,7 @@ struct WeightContainer: public DataExporter
 	{
 		loop(double& w, weights)
 		{
-			if (w == infinity)
+			if (w == GlobalVariables::instance().getInfinity() )
 			{
 				w = Random::normal() * range;
 			}
@@ -103,7 +103,7 @@ struct WeightContainer: public DataExporter
 	//MUST BE CALLED BEFORE WEIGHT CONTAINER IS USED
 	void build()
 	{
-		fill(weights, infinity);
+		fill(weights, GlobalVariables::instance().getInfinity());
 		plasticities.resize(weights.size());
 		derivatives.resize(weights.size());
 		fill(plasticities, 1);
