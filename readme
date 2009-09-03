@@ -14,9 +14,10 @@ In addition, the following python packages are needed for the auxiliary scripts 
 * matplotlib
 * PIL
 
-And this package is needed to create and manipulate netcdf data files with python, and to run the experiments in the ‘examples’ directory:
+And these packages are needed to create and manipulate netcdf data files with python, and to run the experiments in the ‘examples’ directory:
 
 * ScientificPython (NOT Scipy)
+* netCDF Operator (NCO)
 
 To build RNNLIB, first download the source from here, then enter the root directory and type
 

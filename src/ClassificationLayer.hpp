@@ -21,6 +21,8 @@ along with RNNLIB.  If not, see <http://www.gnu.org/licenses/>.*/
 #include <boost/bimap.hpp>
 #include "SoftmaxLayer.hpp"
 
+namespace rnnlib {
+
 struct ClassificationLayer: public SoftmaxLayer
 {
 	//data
@@ -135,6 +137,8 @@ struct ClassificationLayer: public SoftmaxLayer
 		}
 		return crossEntropyError;
 	}
+};
+
 };
 
 #endif

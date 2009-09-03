@@ -20,6 +20,8 @@ along with RNNLIB.  If not, see <http://www.gnu.org/licenses/>.*/
 
 #include "MultiArray.hpp"
 
+namespace rnnlib {
+
 template <class R> struct CoordIterator
 {
 	//data
@@ -244,5 +246,7 @@ template <class T> static ostream& operator <<(ostream& out, const SeqBuffer<T>&
 	a.print(out);
 	return out;
 }
+
+};
 
 #endif

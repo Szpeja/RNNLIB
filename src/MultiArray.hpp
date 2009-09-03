@@ -33,6 +33,8 @@ using namespace std;
 using namespace boost;
 using namespace boost::assign;
 
+namespace rnnlib {
+
 template <class T> struct MultiArray
 {
 	//data
@@ -179,5 +181,7 @@ template <class T> static bool operator == (const MultiArray<T>& a, const MultiA
 {
 	return (a.data == b.data && a.shape == b.shape);
 }
+
+};
 
 #endif

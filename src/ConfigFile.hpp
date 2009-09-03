@@ -26,7 +26,10 @@ along with RNNLIB.  If not, see <http://www.gnu.org/licenses/>.*/
 #include <iterator>
 #include "Helpers.hpp"
 
+
 using namespace std;
+
+namespace rnnlib {
 
 struct ConfigFile
 {
@@ -124,5 +127,7 @@ static ostream& operator << (ostream& out, const ConfigFile& conf)
 	out << conf.params;
 	return out;
 }
+
+};
 
 #endif

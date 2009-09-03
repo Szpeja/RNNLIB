@@ -26,6 +26,10 @@ along with RNNLIB.  If not, see <http://www.gnu.org/licenses/>.*/
 #include "Helpers.hpp"
 #include "SeqBuffer.hpp"
 
+using namespace boost::assign;
+
+namespace rnnlib {
+
 #define PRINT_ARRAY_SHAPE(a, o) (o << #a ": shape = [" << a.shape << "], size = " << a.seq_size() << endl)
 
 template<class R> static string label_seq_to_str(const R& labelSeq, const bimap<int, string>& labels, const string& delim = " ")
@@ -109,5 +113,7 @@ static ostream& operator <<(ostream& out, const DataSequence& seq)
 	seq.print(out);
 	return out;
 }
+
+};
 
 #endif

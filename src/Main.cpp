@@ -25,6 +25,8 @@ along with RNNLIB.  If not, see <http://www.gnu.org/licenses/>.*/
 #include "Rprop.hpp"
 #include "Trainer.hpp"
 
+using namespace rnnlib;
+
 typedef boost::iostreams::tee_device<ostream, ofstream> TeeDev;
 typedef boost::iostreams::stream<TeeDev> TeeStream;
 		

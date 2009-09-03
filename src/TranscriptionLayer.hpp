@@ -22,6 +22,8 @@ along with RNNLIB.  If not, see <http://www.gnu.org/licenses/>.*/
 #include "SoftmaxLayer.hpp"
 #include "StringAlignment.hpp"
 
+namespace rnnlib {
+
 struct TranscriptionLayer: public SoftmaxLayer
 {	
 	//data
@@ -60,7 +62,7 @@ struct TranscriptionLayer: public SoftmaxLayer
 		{
 			totalSegs = totalSegments;
 		}
-		return range<int>(max(0, totalSegs - (2 *(totalTime-time))), min(totalSegs, 2 * (time + 1)));
+		return range<int>(std::max(0, totalSegs - (2 *(totalTime-time))), min(totalSegs, 2 * (time + 1)));
 	}
 	vector<int>& path_to_string(const vector<int>& path) const
 	{
@@ -241,6 +243,8 @@ struct TranscriptionLayer: public SoftmaxLayer
 		}
 		return ctcError;
 	}
+};
+
 };
 
 #endif

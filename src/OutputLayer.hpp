@@ -22,6 +22,8 @@ along with RNNLIB.  If not, see <http://www.gnu.org/licenses/>.*/
 #include "Layer.hpp"
 #include "DataSequence.hpp"
 
+namespace rnnlib {
+
 #define ERR(x) this->errorMap[#x] = x
 
 struct OutputLayer: public Layer
@@ -37,6 +39,8 @@ struct OutputLayer: public Layer
 	{
 	}
 	virtual double calculate_errors(const DataSequence& seq) = 0;
+};
+
 };
 
 #endif

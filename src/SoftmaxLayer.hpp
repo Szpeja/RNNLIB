@@ -21,6 +21,8 @@ along with RNNLIB.  If not, see <http://www.gnu.org/licenses/>.*/
 #include <boost/algorithm/minmax_element.hpp>
 #include "OutputLayer.hpp"
 
+namespace rnnlib {
+
 struct SoftmaxLayer: public OutputLayer
 {
 	//data
@@ -71,6 +73,8 @@ struct SoftmaxLayer: public OutputLayer
 			t.get<0>() = t.get<1>() * (t.get<2>() - Z);
 		}
 	}	
+};
+
 };
 
 #endif

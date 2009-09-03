@@ -24,6 +24,8 @@ along with RNNLIB.  If not, see <http://www.gnu.org/licenses/>.*/
 
 using namespace std;
 
+namespace rnnlib {
+
 struct Named
 {
 	string name;
@@ -43,5 +45,7 @@ static ostream& operator << (ostream& out, const Named& n)
 	n.print(out);
 	return out;
 }
+
+};
 
 #endif

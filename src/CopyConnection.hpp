@@ -20,6 +20,8 @@ along with RNNLIB.  If not, see <http://www.gnu.org/licenses/>.*/
 
 #include "Connection.hpp"
 
+namespace rnnlib {
+
 struct CopyConnection: public Connection
 {
 	//functions
@@ -46,6 +48,8 @@ struct CopyConnection: public Connection
 		Named::print(out);
 		out << " (copy)";
 	}
+};
+
 };
 
 #endif

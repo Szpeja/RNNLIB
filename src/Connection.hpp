@@ -21,6 +21,8 @@ along with RNNLIB.  If not, see <http://www.gnu.org/licenses/>.*/
 #include <iostream>
 #include "Named.hpp"
 
+namespace rnnlib {
+
 struct Connection: public Named
 {
 	//data
@@ -50,5 +52,7 @@ static ostream& operator <<(ostream& out, const Connection& c)
 	c.print(out);
 	return out;
 }
+
+};
 
 #endif

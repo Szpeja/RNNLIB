@@ -20,6 +20,8 @@ along with RNNLIB.  If not, see <http://www.gnu.org/licenses/>.*/
 
 #include "Layer.hpp"
 
+namespace rnnlib {
+
 struct SamplingLayer: public Layer
 {
 	//functions
@@ -46,6 +48,8 @@ struct SamplingLayer: public Layer
 			t.get<0>() = t.get<1>() + (t.get<2>() ? t.get<3>() : 1 - t.get<3>());
 		}
 	}
+};
+
 };
 
 #endif

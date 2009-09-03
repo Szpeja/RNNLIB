@@ -20,6 +20,8 @@ along with RNNLIB.  If not, see <http://www.gnu.org/licenses/>.*/
 
 #include "Layer.hpp"
 
+namespace rnnlib {
+
 struct BiasLayer: public Layer
 {
 	//data
@@ -43,6 +45,8 @@ struct BiasLayer: public Layer
 	{
 		return errors;
 	}
+};
+
 };
 
 #endif

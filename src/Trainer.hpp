@@ -28,6 +28,9 @@ along with RNNLIB.  If not, see <http://www.gnu.org/licenses/>.*/
 
 using namespace std;
 //extern bool verbose;
+
+namespace rnnlib {
+
 #ifdef OP_TRACKING
 	extern unsigned long long matrixOps;
 #endif
@@ -418,6 +421,8 @@ struct Trainer: public DataExporter
 			out << "WARNING: all data sets empty" << endl;
 		}
 	}
+};
+
 };
 
 #endif

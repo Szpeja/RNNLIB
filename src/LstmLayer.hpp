@@ -21,6 +21,9 @@ along with RNNLIB.  If not, see <http://www.gnu.org/licenses/>.*/
 #include "Layer.hpp"
 #include "Matrix.hpp"
 #include "WeightContainer.hpp"
+
+namespace rnnlib {
+
 #define PEEPS
 
 template <class CI, class CO, class G> struct LstmLayer: public Layer
@@ -162,7 +165,7 @@ template <class CI, class CO, class G> struct LstmLayer: public Layer
 			}
 			
 			//pre-gate cell states
-			transform(inActIt, inActIt + cellsPerBlock, preGateStateBegin + cellStart, CI::fn);
+			std::transform(inActIt, inActIt + cellsPerBlock, preGateStateBegin + cellStart, CI::fn);
 			inActIt += cellsPerBlock;
 			
 			//cell states
@@ -237,7 +240,7 @@ template <class CI, class CO, class G> struct LstmLayer: public Layer
 			
 			//output gate error
 			double outGateError = G::deriv(outGateAct) * 
-				inner_product(preOutGateActBegin + cellStart, preOutGateActBegin + cellEnd, outputErrorBegin + cellStart, 0.0);
+				std::inner_product(preOutGateActBegin + cellStart, preOutGateActBegin + cellEnd, outputErrorBegin + cellStart, 0.0);
 			
 			//cell pds (dE/dState)
 			loop(int c, range(cellStart, cellEnd))
@@ -268,7 +271,7 @@ template <class CI, class CO, class G> struct LstmLayer: public Layer
 			
 			//input gate error
 			*errorIt = G::deriv(inGateAct) * 
-				inner_product(cellErrorBegin + cellStart, cellErrorBegin + cellEnd, preGateStateBegin + cellStart, 0.0);
+				std::inner_product(cellErrorBegin + cellStart, cellErrorBegin + cellEnd, preGateStateBegin + cellStart, 0.0);
 			++errorIt;
 			
 			//forget gate error
@@ -278,7 +281,7 @@ template <class CI, class CO, class G> struct LstmLayer: public Layer
 				if (os.begin())
 				{
 					*errorIt = G::deriv(forgetGateActBegin[fgStart + d]) * 
-						inner_product(cellErrorBegin + cellStart, cellErrorBegin + cellEnd, os.begin() + cellStart, 0.0);
+						std::inner_product(cellErrorBegin + cellStart, cellErrorBegin + cellEnd, os.begin() + cellStart, 0.0);
 				}
 				else
 				{
@@ -356,6 +359,8 @@ template <class CI, class CO, class G> struct LstmLayer: public Layer
 		out << " " << difference(peepRange) << " peeps";
 	}
 #endif
+};
+
 };
 
 #endif

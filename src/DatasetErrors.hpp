@@ -20,6 +20,8 @@ along with RNNLIB.  If not, see <http://www.gnu.org/licenses/>.*/
 
 #include "Helpers.hpp"
 
+namespace rnnlib {
+
 struct DatasetErrors
 {
 	//data
@@ -96,5 +98,7 @@ static ostream& operator << (ostream& out, const DatasetErrors& de)
 }
 
 typedef pair<const string, pair<int, DatasetErrors> > PSPIDE;
+
+};
 
 #endif

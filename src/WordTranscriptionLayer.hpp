@@ -3,6 +3,8 @@
 
 #include "DecodingLayer.hpp"
 
+namespace rnnlib {
+
 struct WordTranscriptionLayer: public DecodingLayer
 {	
 	//data
@@ -358,6 +360,8 @@ struct WordTranscriptionLayer: public DecodingLayer
 	
 	//TODO substitution confusion matrix, insertion and deletion lists
 	return ctcMlError;
+};
+
 };
 
 #endif

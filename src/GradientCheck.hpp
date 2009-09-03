@@ -23,6 +23,8 @@ along with RNNLIB.  If not, see <http://www.gnu.org/licenses/>.*/
 
 //extern bool runningGradTest;
 
+namespace rnnlib {
+
 struct GradientCheck
 {
 	//data
@@ -128,7 +130,7 @@ struct GradientCheck
 			{
 				out << "weight " << index << " numeric deriv " << numericDeriv << " algorithmic deriv " << algoDeriv << endl;
 			}
-			double threshold = pow(10.0, max(0.0, ceil(log10(min(fabs(algoDeriv), fabs(numericDeriv)))))-(int)sigFigs);
+			double threshold = pow(10.0, std::max(0.0, ceil(log10(min(fabs(algoDeriv), fabs(numericDeriv)))))-(int)sigFigs);
 			if (fabs(numericDeriv - algoDeriv) > threshold)
 			{
 				if(!verbose)
@@ -140,6 +142,8 @@ struct GradientCheck
 		}
 		return true;
 	}
+};
+
 };
 
 #endif

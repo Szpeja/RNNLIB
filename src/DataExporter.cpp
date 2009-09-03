@@ -17,6 +17,8 @@ along with RNNLIB.  If not, see <http://www.gnu.org/licenses/>.*/
 
 #include "DataExporter.hpp"
 
+using namespace rnnlib;
+
 void DataExportHandler::save(ostream& out) const
 {
 	loop(const PSPDE& exp, dataExporters)

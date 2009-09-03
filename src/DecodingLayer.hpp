@@ -6,6 +6,8 @@
 #include "Word.hpp"
 #include "ObjectStore.hpp"
 
+namespace rnnlib {
+
 struct token_prob_greater : public binary_function<const WordToken*, const WordToken*, const bool> 
 {
 	bool operator()(const WordToken* t1, const WordToken* t2) const
@@ -380,6 +382,8 @@ struct DecodingLayer: public TranscriptionLayer
 		}
 		return ctcError;
 	}								  
+};
+
 };
 
 #endif

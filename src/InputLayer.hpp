@@ -20,6 +20,8 @@ along with RNNLIB.  If not, see <http://www.gnu.org/licenses/>.*/
 
 #include "Layer.hpp"
 
+namespace rnnlib {
+
 struct InputLayer: public Layer
 {
 	//functions
@@ -37,6 +39,8 @@ struct InputLayer: public Layer
 		this->outputActivations = inputs;
 		this->outputErrors.reshape(this->outputActivations, 0);
 	}
+};
+
 };
 
 #endif

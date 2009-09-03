@@ -21,6 +21,8 @@ along with RNNLIB.  If not, see <http://www.gnu.org/licenses/>.*/
 #include "OutputLayer.hpp"
 #include "Helpers.hpp"
 
+namespace rnnlib {
+
 struct LinearOutputLayer: public OutputLayer
 {	
 	//functions
@@ -38,6 +40,8 @@ struct LinearOutputLayer: public OutputLayer
 	{
 		copy(this->outputErrors[coords], this->inputErrors[coords]);
 	}	
+};
+
 };
 
 #endif

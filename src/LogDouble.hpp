@@ -20,9 +20,11 @@ along with RNNLIB.  If not, see <http://www.gnu.org/licenses/>.*/
 
 #include <math.h>
 #include <iostream>
-#include <Helpers.hpp>
+//#include <Helpers.hpp>
 
 using namespace std;
+
+namespace rnnlib {
 
 // static const double expLimit = log(numeric_limits<double>::max());
 // static const double negExpLimit = log(numeric_limits<double>::min());
@@ -156,48 +158,48 @@ public:
 		return expVal; 
 	}
 };
-LogDouble operator+ (LogDouble log1, LogDouble log2)
+inline LogDouble operator+ (LogDouble log1, LogDouble log2)
 {
 	return LogDouble(log_add(log1.log, log2.log), true);
 }
-LogDouble operator- (LogDouble log1, LogDouble log2)
+inline LogDouble operator- (LogDouble log1, LogDouble log2)
 {
 	return LogDouble(log_subtract(log1.log, log2.log), true);
 }
-LogDouble operator* (LogDouble log1, LogDouble log2)
+inline LogDouble operator* (LogDouble log1, LogDouble log2)
 {
 	return LogDouble(log_multiply(log1.log, log2.log), true);
 }
-LogDouble operator/ (LogDouble log1, LogDouble log2)
+inline LogDouble operator/ (LogDouble log1, LogDouble log2)
 {
 	return LogDouble(log_divide(log1.log, log2.log), true);
 }
-bool operator> (LogDouble log1, LogDouble log2)
+inline bool operator> (LogDouble log1, LogDouble log2)
 {
 	return (log1.log > log2.log);
 }
-bool operator< (LogDouble log1, LogDouble log2)
+inline bool operator< (LogDouble log1, LogDouble log2)
 {
 	return (log1.log < log2.log);
 }
-bool operator== (LogDouble log1, LogDouble log2)
+inline bool operator== (LogDouble log1, LogDouble log2)
 {
 	return (log1.log == log2.log);
 }
-bool operator<= (LogDouble log1, LogDouble log2)
+inline bool operator<= (LogDouble log1, LogDouble log2)
 {
 	return (log1.log <= log2.log);
 }
-bool operator>= (LogDouble log1, LogDouble log2)
+inline bool operator>= (LogDouble log1, LogDouble log2)
 {
 	return (log1.log >= log2.log);
 }
-ostream& operator << (ostream& out, const LogDouble& l)
+inline ostream& operator << (ostream& out, const LogDouble& l)
 {
 	out << (l.log == GlobalVariables::instance().getLogZero() ? 0 : l.log);
 	return out;
 }
-istream& operator >> (istream& in, LogDouble& l)
+inline istream& operator >> (istream& in, LogDouble& l)
 {
 	double d;
 	in >> d;
@@ -207,5 +209,7 @@ istream& operator >> (istream& in, LogDouble& l)
 
 typedef const tuple<double&, LogDouble&, LogDouble&>& TDLL;
 typedef const tuple<double&, LogDouble&>& TDL;
+
+};
 
 #endif

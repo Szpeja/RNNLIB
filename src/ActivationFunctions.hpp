@@ -26,6 +26,8 @@ along with RNNLIB.  If not, see <http://www.gnu.org/licenses/>.*/
 using namespace std;
 using namespace boost;
 
+namespace rnnlib {
+
 //#define FAST_LOGISTIC
 
 #ifdef FAST_LOGISTIC
@@ -160,6 +162,8 @@ struct Tanh
 	{
 		return 1.0 - (y *  y); 
 	}
+};
+
 };
 
 #endif

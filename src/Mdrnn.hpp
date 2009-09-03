@@ -34,6 +34,8 @@ along with RNNLIB.  If not, see <http://www.gnu.org/licenses/>.*/
 #include "CollapseLayer.hpp"
 #include "CopyConnection.hpp"
 
+namespace rnnlib {
+
 typedef pair<Layer*, Connection*> PLC;
 typedef multimap<Layer*, Connection*>::iterator CONN_IT ;
 typedef multimap<Layer*, Connection*>::const_iterator CONST_CONN_IT;
@@ -461,10 +463,12 @@ struct Mdrnn
 	}
 };
 
-ostream& operator << (ostream& out, const Mdrnn& net)
+inline ostream& operator << (ostream& out, const Mdrnn& net)
 {
 	net.print(out);
 	return out;
 }
+
+};
 
 #endif

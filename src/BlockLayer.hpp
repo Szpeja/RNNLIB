@@ -20,6 +20,8 @@ along with RNNLIB.  If not, see <http://www.gnu.org/licenses/>.*/
 
 #include "Layer.hpp"
 
+namespace rnnlib {
+
 struct BlockLayer: public Layer
 {
 	//data
@@ -70,11 +72,11 @@ struct BlockLayer: public Layer
 			View<double> inActs = this->source->outputActivations.at(inCoords);
 			if (inActs.begin())
 			{
-				copy(inActs.begin(), inActs.end(), outIt);
+				std::copy(inActs.begin(), inActs.end(), outIt);
 			}
 			else
 			{
-				fill(outIt, outIt + sourceSize, 0);
+				std::fill(outIt, outIt + sourceSize, 0);
 			}
 			outIt += sourceSize;
 		}
@@ -94,6 +96,8 @@ struct BlockLayer: public Layer
 			outIt += sourceSize;
 		}
 	}
+};
+
 };
 
 #endif

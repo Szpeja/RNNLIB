@@ -24,6 +24,8 @@ along with RNNLIB.  If not, see <http://www.gnu.org/licenses/>.*/
 
 //extern bool verbose;
 
+namespace rnnlib {
+
 struct Layer: public DataExporter
 {
 	//data
@@ -148,11 +150,13 @@ struct Layer: public DataExporter
 	
 };
 
-ostream& operator << (ostream& out, const Layer& l)
+inline ostream& operator << (ostream& out, const Layer& l)
 {
 	l.print(out);
 	return out;
 }
+
+};
 
 #endif
 

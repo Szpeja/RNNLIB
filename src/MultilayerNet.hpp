@@ -24,7 +24,9 @@ along with RNNLIB.  If not, see <http://www.gnu.org/licenses/>.*/
 #include "AutoregressionLayer.hpp"
 #include "TranscriptionLayer.hpp"
 #include "DecodingLayer.hpp"
- 
+
+namespace rnnlib {
+
 struct MultilayerNet: public Mdrnn
 {
 	//functions
@@ -125,5 +127,7 @@ struct MultilayerNet: public Mdrnn
 		connect_from_hidden_level(hiddenLevels.size() - 1, output);
 	}
 };
+
+}; /* rnnlib namespace */
 
 #endif

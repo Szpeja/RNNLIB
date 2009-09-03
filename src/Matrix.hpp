@@ -18,6 +18,8 @@ along with RNNLIB.  If not, see <http://www.gnu.org/licenses/>.*/
 #ifndef _INCLUDED_Matrix_h  
 #define _INCLUDED_Matrix_h  
 
+namespace rnnlib {
+
 #define OP_TRACKING
 
 #ifdef OP_TRACKING
@@ -91,5 +93,7 @@ template<class R> static void dot_transpose(const R& a, const double *M, const R
 {
 	dot_transpose(boost::begin(a), boost::end(a), M, boost::begin(b), boost::end(b));
 }
+
+};
 
 #endif

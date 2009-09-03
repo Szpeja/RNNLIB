@@ -23,6 +23,8 @@ along with RNNLIB.  If not, see <http://www.gnu.org/licenses/>.*/
 
 using namespace std;
 
+namespace rnnlib {
+
 template<class T> struct StringAlignment
 {
 	//data
@@ -232,6 +234,8 @@ template<class T> struct StringAlignment
 		}
 		return distance;
 	}
+};
+
 };
 
 #endif

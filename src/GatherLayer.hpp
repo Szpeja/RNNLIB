@@ -20,6 +20,8 @@ along with RNNLIB.  If not, see <http://www.gnu.org/licenses/>.*/
 
 #include "Layer.hpp"
 
+namespace rnnlib {
+
 struct GatherLayer: public Layer
 {
 	//data
@@ -50,7 +52,7 @@ struct GatherLayer: public Layer
 		loop(Layer* l, sources)
 		{
 			View<double> inActs = l->outputActivations[outCoords];
-			copy(inActs.begin(), inActs.end(), actBegin);
+			std::copy(inActs.begin(), inActs.end(), actBegin);
 			actBegin += inActs.size();
 		}
 	}
@@ -61,10 +63,12 @@ struct GatherLayer: public Layer
 		{
 			View<double> inErrs = l->outputErrors[outCoords];
 			int dist = inErrs.size();
-			copy(errBegin, errBegin + dist, inErrs.begin());
+			std::copy(errBegin, errBegin + dist, inErrs.begin());
 			errBegin += dist;
 		}
 	}
+};
+
 };
 
 #endif

@@ -25,6 +25,8 @@ along with RNNLIB.  If not, see <http://www.gnu.org/licenses/>.*/
 using namespace std;
 //extern bool verbose;
 
+namespace rnnlib {
+
 struct SteepestDescent: public DataExporter, public Optimiser
 {
 	//data
@@ -82,6 +84,8 @@ struct SteepestDescent: public DataExporter, public Optimiser
 		PRINT(learnRate, out);
 		PRINT(momentum, out);
 	}
+};
+
 };
 
 #endif

@@ -18,6 +18,8 @@ along with RNNLIB.  If not, see <http://www.gnu.org/licenses/>.*/
 #ifndef _INCLUDED_ObjectStore_h  
 #define _INCLUDED_ObjectStore_h  
 
+namespace rnnlib {
+
 template<class T> class ObjectStore
 {
 		
@@ -60,6 +62,8 @@ public:
 	{
 		delete_range(store);
 	}
+};
+
 };
 
 #endif

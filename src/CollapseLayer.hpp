@@ -20,6 +20,10 @@ along with RNNLIB.  If not, see <http://www.gnu.org/licenses/>.*/
 
 #include "Layer.hpp"
 
+using namespace std;
+
+namespace rnnlib {
+
 struct CollapseLayer: public Layer
 {	
 	//data
@@ -76,6 +80,8 @@ struct CollapseLayer: public Layer
 	{
 		copy(this->outputErrors[get_out_coords(coords)], this->inputErrors[coords]);
 	}
+};
+
 };
 
 #endif

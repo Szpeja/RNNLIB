@@ -25,6 +25,8 @@ along with RNNLIB.  If not, see <http://www.gnu.org/licenses/>.*/
 #include "Helpers.hpp"
 #include "LogDouble.hpp"
 
+namespace rnnlib {
+
 struct Word;
 
 struct WordToken
@@ -191,5 +193,7 @@ ostream& operator << (ostream& out, const Word& w)
 	out << w.str << " " << w.labelStr;
 	return out;
 }
+
+};
 
 #endif

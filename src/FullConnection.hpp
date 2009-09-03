@@ -29,6 +29,8 @@ along with RNNLIB.  If not, see <http://www.gnu.org/licenses/>.*/
 #include "Connection.hpp"
 #include "Matrix.hpp"
 
+namespace rnnlib {
+
 struct FullConnection: public Connection
 {
 	//data
@@ -134,6 +136,8 @@ struct FullConnection: public Connection
 		}
 		out << ")";
 	}
+};
+
 };
 
 #endif

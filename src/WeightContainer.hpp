@@ -29,6 +29,8 @@ along with RNNLIB.  If not, see <http://www.gnu.org/licenses/>.*/
 
 using namespace std;
 
+namespace rnnlib {
+
 typedef multimap<string, tuple<string, string, int, int> >::iterator WC_CONN_IT; 
 typedef pair<string, tuple<string, string, int, int> > WC_CONN_PAIR;
 
@@ -110,6 +112,8 @@ struct WeightContainer: public DataExporter
 		save_by_conns(weights, "weights");
 		save_by_conns(plasticities, "plasticities");
 	}
+};
+
 };
 
 #endif

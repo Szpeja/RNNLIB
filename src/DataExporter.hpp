@@ -25,6 +25,8 @@ along with RNNLIB.  If not, see <http://www.gnu.org/licenses/>.*/
 #include "SeqBuffer.hpp"
 #include "ConfigFile.hpp"
 
+namespace rnnlib {
+
 #define SAVE(x) (save (x, #x))
 #define DISPLAY(x) (display (x, #x))
 
@@ -240,5 +242,7 @@ static ostream& operator <<(ostream& out, const DataExporter& d)
 	d.save(out);
 	return out;
 }
+
+};
 
 #endif

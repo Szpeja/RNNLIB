@@ -28,6 +28,8 @@ along with RNNLIB.  If not, see <http://www.gnu.org/licenses/>.*/
 #include "DataSequence.hpp"
 #include "Helpers.hpp"
 
+namespace rnnlib {
+
 #define SEQ_IT vector<DataSequence*>::iterator
 #define CONST_SEQ_IT vector<DataSequence*>::const_iterator
 static int load_nc_dim(const NcFile& ncf, const string& name, bool required = true)
@@ -567,5 +569,7 @@ static ostream& operator << (ostream& out, const DataList& dl)
 	dl.print(out);
 	return out;
 }
+
+};
 
 #endif

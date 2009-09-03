@@ -21,6 +21,8 @@ along with RNNLIB.  If not, see <http://www.gnu.org/licenses/>.*/
 #include "LinearOutputLayer.hpp"
 #include "Helpers.hpp"
 
+namespace rnnlib {
+
 struct RegressionLayer: public LinearOutputLayer
 {
 	//data
@@ -62,6 +64,8 @@ struct RegressionLayer: public LinearOutputLayer
 		this->errorMap["sumSquaresError"] = sumSquaresError;
 		return sumSquaresError;
 	}	
+};
+
 };
 
 #endif

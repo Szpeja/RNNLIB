@@ -20,6 +20,7 @@ along with RNNLIB.  If not, see <http://www.gnu.org/licenses/>.*/
 
 #include "Layer.hpp"
 
+namespace rnnlib {
 
 template <class F> struct NeuronLayer: public Layer
 {
@@ -52,6 +53,8 @@ template <class F> struct NeuronLayer: public Layer
 			t.get<0>() = F::deriv(t.get<1>()) * t.get<2>();
 		}
 	}
+};
+
 };
 
 #endif

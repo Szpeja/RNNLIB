@@ -25,6 +25,8 @@ along with RNNLIB.  If not, see <http://www.gnu.org/licenses/>.*/
 
 using namespace std;
 
+namespace rnnlib {
+
 struct Rprop: public DataExporter, public Optimiser
 {
 	//data
@@ -99,7 +101,7 @@ struct Rprop: public DataExporter, public Optimiser
  			double avgDelta = mean(deltas);
 			if (avgDelta > prevAvgDelta)
 			{
-				etaPlus = max (1.0, etaPlus - etaChange);
+				etaPlus = std::max (1.0, etaPlus - etaChange);
 			}
 			else
 			{
@@ -143,6 +145,8 @@ struct Rprop: public DataExporter, public Optimiser
 		PRINT(maxDelta, out);
 		PRINT(initDelta, out);
 	}
+};
+
 };
 
 #endif

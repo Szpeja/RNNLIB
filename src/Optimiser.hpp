@@ -24,6 +24,8 @@ along with RNNLIB.  If not, see <http://www.gnu.org/licenses/>.*/
 
 using namespace std;
 
+namespace rnnlib {
+
 struct Optimiser
 {
 	virtual ~Optimiser(){}
@@ -37,5 +39,7 @@ ostream& operator << (ostream& out, const Optimiser& o)
 	o.print(out);
 	return out;
 }
+
+};
 
 #endif

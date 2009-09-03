@@ -52,60 +52,62 @@ using namespace boost::assign;
 using namespace boost::posix_time;
 using namespace boost::gregorian;
 
+namespace rnnlib {
+
 #define loop BOOST_FOREACH
 #define loop_back BOOST_REVERSE_FOREACH
 
-typedef vector<size_t>::const_iterator VSTCI;
-typedef vector<double>::iterator VDI;
-typedef vector<double>::const_iterator VDCI;
-typedef vector<double>::reverse_iterator VDRI;
-typedef string::iterator SI;
-typedef string::const_iterator SCI;
-typedef vector<int>::iterator VII;
-typedef vector<string>::iterator VSI;
-typedef vector<string>::const_iterator VSCI;
-typedef vector<int>::reverse_iterator VIRI;
-typedef vector<vector<int> >::reverse_iterator VVIRI;
-typedef vector<int>::const_iterator VICI;
-typedef vector<bool>::iterator VBI;
-typedef vector<float>::iterator VFI;
-typedef vector<float>::const_iterator VFCI;
-typedef vector<vector<double> >::iterator VVDI;
-typedef vector<vector<double> >::const_iterator VVDCI;
-typedef vector<vector<int> >::iterator VVII;
-typedef vector<vector<int> >::const_iterator VVICI;
-typedef vector<unsigned int>::iterator VUII;
-typedef vector<vector<float> >::iterator VVFI;
-typedef map<string, string>::iterator MSSI;
-typedef map<string, string>::const_iterator MSSCI;
-typedef map<string, double>::iterator MSDI;
-typedef map<string, double>::const_iterator MSDCI;
-typedef map<string, pair<int,double> >::iterator MSPIDI;
-typedef map<string, pair<int,double> >::const_iterator MSPIDCI;
-typedef vector< map<string, pair<int,double> > >::const_iterator VMSDCI;
-typedef vector<map<string, pair<int,double> > >::iterator VMSDI;
-typedef vector<map<string, pair<int,double> > >::reverse_iterator VMSDRI;
-typedef map<string, int>::iterator MSII;
-typedef map<string, int>::const_iterator MSICI;
-typedef map<int, int>::iterator MIII;
-typedef map<int, int>::const_iterator MIICI;
-typedef vector<vector<int> >::const_reverse_iterator VVIRCI;
-typedef vector<int>::const_reverse_iterator VIRCI;
-typedef vector<const float*>::const_iterator VPCFCI;
-typedef vector<const float*>::iterator VPCFI;
-typedef vector<const float*>::const_reverse_iterator VPCFCRI;
-typedef vector<bool>::const_iterator VBCI;
-typedef vector<bool>::iterator VBI;
-typedef map <string, pair<double, int> >::iterator MCSPDII;
-typedef map <string, pair<double, int> >::const_iterator MCSPDICI;
-typedef bimap<int, string>::left_const_iterator BMISLCI;
-typedef bimap<int, string>::right_const_iterator BMISRCI;
-typedef bimap<int, string>::relation BMISR;
-typedef pair<string, double> PSD;
-typedef pair<int, int> PII;
-typedef pair<const string, double> PCSD;
-typedef pair<string, int> PSI;
-typedef pair<string, string> PSS;
+typedef std::vector<size_t>::const_iterator VSTCI;
+typedef std::vector<double>::iterator VDI;
+typedef std::vector<double>::const_iterator VDCI;
+typedef std::vector<double>::reverse_iterator VDRI;
+typedef std::string::iterator SI;
+typedef std::string::const_iterator SCI;
+typedef std::vector<int>::iterator VII;
+typedef std::vector<std::string>::iterator VSI;
+typedef std::vector<std::string>::const_iterator VSCI;
+typedef std::vector<int>::reverse_iterator VIRI;
+typedef std::vector<std::vector<int> >::reverse_iterator VVIRI;
+typedef std::vector<int>::const_iterator VICI;
+typedef std::vector<bool>::iterator VBI;
+typedef std::vector<float>::iterator VFI;
+typedef std::vector<float>::const_iterator VFCI;
+typedef std::vector<std::vector<double> >::iterator VVDI;
+typedef std::vector<std::vector<double> >::const_iterator VVDCI;
+typedef std::vector<std::vector<int> >::iterator VVII;
+typedef std::vector<std::vector<int> >::const_iterator VVICI;
+typedef std::vector<unsigned int>::iterator VUII;
+typedef std::vector<std::vector<float> >::iterator VVFI;
+typedef std::map<std::string, std::string>::iterator MSSI;
+typedef std::map<std::string, std::string>::const_iterator MSSCI;
+typedef std::map<std::string, double>::iterator MSDI;
+typedef std::map<std::string, double>::const_iterator MSDCI;
+typedef std::map<std::string, std::pair<int,double> >::iterator MSPIDI;
+typedef std::map<std::string, std::pair<int,double> >::const_iterator MSPIDCI;
+typedef std::vector< std::map<std::string, std::pair<int,double> > >::const_iterator VMSDCI;
+typedef std::vector<std::map<std::string, std::pair<int,double> > >::iterator VMSDI;
+typedef std::vector<std::map<std::string, std::pair<int,double> > >::reverse_iterator VMSDRI;
+typedef std::map<std::string, int>::iterator MSII;
+typedef std::map<std::string, int>::const_iterator MSICI;
+typedef std::map<int, int>::iterator MIII;
+typedef std::map<int, int>::const_iterator MIICI;
+typedef std::vector<std::vector<int> >::const_reverse_iterator VVIRCI;
+typedef std::vector<int>::const_reverse_iterator VIRCI;
+typedef std::vector<const float*>::const_iterator VPCFCI;
+typedef std::vector<const float*>::iterator VPCFI;
+typedef std::vector<const float*>::const_reverse_iterator VPCFCRI;
+typedef std::vector<bool>::const_iterator VBCI;
+typedef std::vector<bool>::iterator VBI;
+typedef std::map <std::string, std::pair<double, int> >::iterator MCSPDII;
+typedef std::map <std::string, std::pair<double, int> >::const_iterator MCSPDICI;
+typedef bimap<int, std::string>::left_const_iterator BMISLCI;
+typedef bimap<int, std::string>::right_const_iterator BMISRCI;
+typedef bimap<int, std::string>::relation BMISR;
+typedef std::pair<std::string, double> PSD;
+typedef std::pair<int, int> PII;
+typedef std::pair<const std::string, double> PCSD;
+typedef std::pair<std::string, int> PSI;
+typedef std::pair<std::string, std::string> PSS;
 typedef const tuple<double&, double&, double&, double&>& TDDDD;
 typedef const tuple<double&, double&, double&, double&, double&>& TDDDDD;
 typedef const tuple<double&, double&, double&>& TDDD;
@@ -113,7 +115,7 @@ typedef const tuple<double&, double&, int&>& TDDI;
 typedef const tuple<double&, double&, float&>& TDDF;
 typedef const tuple<double&, double&, float>& TDDCF;
 typedef const tuple<double&, double&>& TDD;
-typedef const tuple<string, int>& TSI;
+typedef const tuple<std::string, int>& TSI;
 typedef const tuple<int, int>& TII;
 typedef const tuple<int, set<int>&>& TISETI;
 
@@ -170,9 +172,8 @@ class GlobalVariables {
 
 };
 
-
 #define PRINT(x, o) ((o) << boolalpha << #x " = " << (x) << endl)
-#define PRINTN(x, o) (o) << boolalpha << #x ":" << endl; print_range((o), (x), string("\n")); (o) << endl
+#define PRINTN(x, o) (o) << boolalpha << #x ":" << endl; print_range((o), (x), std::string("\n")); (o) << endl
 #define PRT(x) PRINT(x, cout)
 #define PRTN(x) PRINTN(x, cout)
 #define PRINTR(x, o) (o) << boolalpha << #x " = "; print_range((o), (x)); (o) << endl
@@ -180,7 +181,7 @@ class GlobalVariables {
 #define check(condition, str)  if(!(condition)) {cout << "ERRROR: " << (str) << endl; assert((condition));}
 
 //MISC FUNCTIONS
-static bool warn (bool condition, ostream& out, const string& str)
+static bool warn (bool condition, ostream& out, const std::string& str)
 {
 	if (!condition)
 	{
@@ -227,10 +228,10 @@ static void print_time(double totalSeconds, ostream& out = cout, bool abbrv = fa
 	}
 	out << totalSeconds - wholeSeconds + seconds << (abbrv ? " secs" : " seconds");
 }
-static string time_stamp(const string& format = "%Y.%m.%d-%H.%M.%S%F%Q")
+static std::string time_stamp(const std::string& format = "%Y.%m.%d-%H.%M.%S%F%Q")
 {
 	time_facet* timef = new time_facet(format.c_str());
-	stringstream ss;
+	std::stringstream ss;
 	ss.imbue(locale(ss.getloc(), timef));
 	ss << microsec_clock::local_time();
 	return ss.str();
@@ -265,12 +266,12 @@ template <class T> static T bound (const T& v, const T& minVal, const T& maxVal)
 	return min(max(minVal, v), maxVal);
 }
 //CAST OPERATIONS
-template<class T> static string str(const T& t)
+template<class T> static std::string str(const T& t)
 {
-	stringstream ss;
+	std::stringstream ss;
 	ss << t;
 	return ss.str();
-//	return lexical_cast<string>(t);
+//	return lexical_cast<std::string>(t);
 }
 template<class T> static double dbl(const T& t)
 {
@@ -294,7 +295,7 @@ template <class R> static size_t count_adjacent(const R& r)
 	}
 	return count;
 }
-template <class R1, class R2> static pair<zip_iterator<tuple<typename range_iterator<R1>::type, typename range_iterator<R2>::type> >,
+template <class R1, class R2> static std::pair<zip_iterator<tuple<typename range_iterator<R1>::type, typename range_iterator<R2>::type> >,
 											zip_iterator<tuple<typename range_iterator<R1>::type, typename range_iterator<R2>::type> > > 
 zip(R1& r1, R2& r2)
 {
@@ -302,7 +303,7 @@ zip(R1& r1, R2& r2)
 	return make_pair(make_zip_iterator(make_tuple(boost::begin(r1), boost::begin(r2))), 
 					 make_zip_iterator(make_tuple(boost::end(r1) - (boost::size(r1) - size), boost::end(r2) - (boost::size(r2) - size))));
 }
-template <class R1, class R2, class R3> static pair<zip_iterator<tuple<typename range_iterator<R1>::type, typename range_iterator<R2>::type, typename range_iterator<R3>::type> >,
+template <class R1, class R2, class R3> static std::pair<zip_iterator<tuple<typename range_iterator<R1>::type, typename range_iterator<R2>::type, typename range_iterator<R3>::type> >,
 													zip_iterator<tuple<typename range_iterator<R1>::type, typename range_iterator<R2>::type, typename range_iterator<R3>::type> > > 
 zip(R1& r1, R2& r2, R3& r3)
 {
@@ -310,7 +311,7 @@ zip(R1& r1, R2& r2, R3& r3)
 	return make_pair(make_zip_iterator(make_tuple(boost::begin(r1), boost::begin(r2), boost::begin(r3))), 
 					 make_zip_iterator(make_tuple(boost::end(r1) - (boost::size(r1) - size), boost::end(r2) - (boost::size(r2) - size), boost::end(r3) - (boost::size(r3) - size))));
 }
-template <class R1, class R2, class R3, class R4> static pair<zip_iterator<tuple<typename range_iterator<R1>::type, typename range_iterator<R2>::type, typename range_iterator<R3>::type, typename range_iterator<R4>::type> >,
+template <class R1, class R2, class R3, class R4> static std::pair<zip_iterator<tuple<typename range_iterator<R1>::type, typename range_iterator<R2>::type, typename range_iterator<R3>::type, typename range_iterator<R4>::type> >,
 zip_iterator<tuple<typename range_iterator<R1>::type, typename range_iterator<R2>::type, typename range_iterator<R3>::type, typename range_iterator<R4>::type> > > 
 zip(R1& r1, R2& r2, R3& r3, R4& r4)
 {
@@ -318,7 +319,7 @@ zip(R1& r1, R2& r2, R3& r3, R4& r4)
 	return make_pair(make_zip_iterator(make_tuple(boost::begin(r1), boost::begin(r2), boost::begin(r3), boost::begin(r4))), 
 					 make_zip_iterator(make_tuple(boost::end(r1) - (boost::size(r1) - size), boost::end(r2) - (boost::size(r2) - size), boost::end(r3) - (boost::size(r3) - size), boost::end(r4) - (boost::size(r4) - size))));
 }
-template <class R1, class R2, class R3, class R4, class R5> static pair<zip_iterator<tuple<typename range_iterator<R1>::type, typename range_iterator<R2>::type, typename range_iterator<R3>::type, typename range_iterator<R4>::type, typename range_iterator<R5>::type> >,
+template <class R1, class R2, class R3, class R4, class R5> static std::pair<zip_iterator<tuple<typename range_iterator<R1>::type, typename range_iterator<R2>::type, typename range_iterator<R3>::type, typename range_iterator<R4>::type, typename range_iterator<R5>::type> >,
 zip_iterator<tuple<typename range_iterator<R1>::type, typename range_iterator<R2>::type, typename range_iterator<R3>::type, typename range_iterator<R4>::type, typename range_iterator<R5>::type> > > 
 zip(R1& r1, R2& r2, R3& r3, R4& r4, R5& r5)
 {
@@ -326,28 +327,28 @@ zip(R1& r1, R2& r2, R3& r3, R4& r4, R5& r5)
 	return make_pair(make_zip_iterator(make_tuple(boost::begin(r1), boost::begin(r2), boost::begin(r3), boost::begin(r4), boost::begin(r5))), 
 					 make_zip_iterator(make_tuple(boost::end(r1) - (boost::size(r1) - size), boost::end(r2) - (boost::size(r2) - size), boost::end(r3) - (boost::size(r3) - size), boost::end(r4) - (boost::size(r4) - size), boost::end(r5) - (boost::size(r5) - size))));
 }
-template <class R> static pair<counting_iterator<typename range_difference<R>::type>, counting_iterator<typename range_difference<R>::type> > indices(const R& r)
+template <class R> static std::pair<counting_iterator<typename range_difference<R>::type>, counting_iterator<typename range_difference<R>::type> > indices(const R& r)
 {
 	return range(boost::size(r));
 }
-template <class R> static pair<zip_iterator<tuple<typename range_iterator<R>::type, counting_iterator<typename range_difference<R>::type> > >,
+template <class R> static std::pair<zip_iterator<tuple<typename range_iterator<R>::type, counting_iterator<typename range_difference<R>::type> > >,
 								zip_iterator<tuple<typename range_iterator<R>::type, counting_iterator<typename range_difference<R>::type> > > >
 enumerate(R& r)
 {
 	return make_pair(make_zip_iterator(make_tuple(boost::begin(r), counting_iterator<typename range_difference<R>::type>(0))), 
 					make_zip_iterator(make_tuple(boost::end(r), counting_iterator<typename range_difference<R>::type>(boost::size(r)))));
 }
-template <class T> static pair<counting_iterator<T>, counting_iterator<T> > range(const T& t)
+template <class T> static std::pair<counting_iterator<T>, counting_iterator<T> > range(const T& t)
 {
 	return make_pair(counting_iterator<T>(0), counting_iterator<T>(t));
 }
-template <class T> static pair<counting_iterator<T>, counting_iterator<T> > range(const T& t1, const T& t2)
+template <class T> static std::pair<counting_iterator<T>, counting_iterator<T> > range(const T& t1, const T& t2)
 {
 	return make_pair(counting_iterator<T>(t1), counting_iterator<T>(t2));
 }
 template <class R1, class R2, class F> static typename range_iterator<R2>::type transform(const R1& r1, R2& r2, F f)
 {
-	return transform(boost::begin(r1), boost::end(r1), boost::begin(r2), f);
+	return std::transform(boost::begin(r1), boost::end(r1), boost::begin(r2), f);
 }
 template <class R> static typename range_value<R>::type& nth_last(R& r, size_t n = 1)
 {
@@ -382,9 +383,9 @@ template <class R> static void reverse_sort(R& r)
 {
 	sort(boost::rbegin(r), boost::rend(r));
 }
-template <class R> pair<typename range_value<R>::type, typename range_value<R>::type> minmax(const R& r)
+template <class R> std::pair<typename range_value<R>::type, typename range_value<R>::type> minmax(const R& r)
 {
-	pair<typename range_const_iterator<R>::type, typename range_const_iterator<R>::type> p = minmax_element(boost::begin(r), boost::end(r));
+	std::pair<typename range_const_iterator<R>::type, typename range_const_iterator<R>::type> p = minmax_element(boost::begin(r), boost::end(r));
 	return make_pair(*p.first, *p.second); 
 }
 template <class R> static void bound_range (R& r, const typename boost::range_value<R>::type& minVal, const typename boost::range_value<R>::type& maxVal)
@@ -422,22 +423,22 @@ template<class R> static size_t count(const R& r, const typename boost::range_va
 template<class R1, class R2> static void copy(const R1& source, R2& dest)
 {
 	assert(boost::size(dest) >= boost::size(source));
-	copy(boost::begin(source), boost::end(source), boost::begin(dest));
+	std::copy(boost::begin(source), boost::end(source), boost::begin(dest));
 }
 template<class R1, class R2> static void reverse_copy(const R1& source, R2& dest)
 {
 	reverse_copy(boost::begin(source), boost::end(source), boost::begin(dest));
 }
-template <class R> static vector<typename boost::range_value<R>::type>& flip(const R& r)
+template <class R> static std::vector<typename boost::range_value<R>::type>& flip(const R& r)
 {
-	static vector<typename boost::range_value<R>::type> v;
+	static std::vector<typename boost::range_value<R>::type> v;
 	v.resize(boost::size(r));
 	reverse_copy(r, v);
 	return v;
 }
 template<class R1, class R2> static bool equal(const R1& source, R2& dest)
 {
-	return ((boost::size(source) == boost::size(dest)) && equal(boost::begin(source), boost::end(source), boost::begin(dest)));
+	return ((boost::size(source) == boost::size(dest)) && std::equal(boost::begin(source), boost::end(source), boost::begin(dest)));
 }
 template<class R> static void shuffle (R& r)
 {
@@ -505,7 +506,7 @@ template <class R> static int max_index(const R& r)
 //ARITHMETIC RANGE OPERATIONS
 template<class R1, class R2> static typename range_value<R1>::type inner_product(const R1& a, const R2& b, typename range_value<R1>::type c = 0)
 {
-	return inner_product(boost::begin(a), boost::end(a), boost::begin(b), c);
+	return std::inner_product(boost::begin(a), boost::end(a), boost::begin(b), c);
 }
 template <class R> static typename range_value<R>::type magnitude(const R& r)
 {
@@ -595,7 +596,7 @@ template<class R, class T> void operator +=(set<T>& s, const R& r)
 	s.insert(boost::begin(r), boost::end(r));
 }
 //VECTOR OPERATIONS
-template<class R, class T> void vector_assign(const R& r, vector<T>& v)
+template<class R, class T> void vector_assign(const R& r, std::vector<T>& v)
 {
 	v.resize(boost::size(r));
 	copy(r, v);
@@ -622,110 +623,110 @@ template<class T1, class T2, class T3, class T4, class T5> static ostream& opera
 	return out;
 }
 //PAIR OPERATIONS
-template<class T1, class T2> static void operator+= (pair<T1, T2>& a, const pair<T1, T2>& b)
+template<class T1, class T2> static void operator+= (std::pair<T1, T2>& a, const std::pair<T1, T2>& b)
 {
 	a.first += b.first;
 	a.second += b.second;
 }
-template<class T1, class T2, class T3> static pair<T1, T2> operator+ (const pair<T1, T2>& a, const T3& b)
+template<class T1, class T2, class T3> static std::pair<T1, T2> operator+ (const std::pair<T1, T2>& a, const T3& b)
 {
 	return make_pair(a.first + b, a.second + b);
 }
-template<class T1, class T2> static ostream& operator << (ostream& out, const pair<T1, T2>& p)
+template<class T1, class T2> static ostream& operator << (ostream& out, const std::pair<T1, T2>& p)
 {
 	out << p.first << " " << p.second;
 	return out;
 }
-template<class T1, class T2> static double pair_product(const pair<T1, T2>& p)
+template<class T1, class T2> static double pair_product(const std::pair<T1, T2>& p)
 {
 	return (double)(p.first * p.second);
 }
-template<class T1, class T2> static double pair_sum(const pair<T1, T2>& p)
+template<class T1, class T2> static double pair_sum(const std::pair<T1, T2>& p)
 {
 	return (double)(p.first + p.second);
 }
-template<class T1, class T2> static double pair_mean(const pair<T1, T2>& p)
+template<class T1, class T2> static double pair_mean(const std::pair<T1, T2>& p)
 {
 	return pair_sum(p)/2.0;
 }
-template <class T1, class T2> static size_t difference(const pair<T1,T2>& p)
+template <class T1, class T2> static size_t difference(const std::pair<T1,T2>& p)
 {
 	return p.second - p.first;
 }
 //MAP OPERATIONS
-template<class T1, class T2> static bool in (const map<T1, T2>& a, const T1& b)
+template<class T1, class T2> static bool in (const std::map<T1, T2>& a, const T1& b)
 {
 	return (a.find(b) != a.end());
 }
-template<class T1, class T2> static const T2& at (const map<T1, T2>& a, const T1& b)
+template<class T1, class T2> static const T2& at (const std::map<T1, T2>& a, const T1& b)
 {
-	typename map<T1, T2>::const_iterator it = a.find(b);
+	typename std::map<T1, T2>::const_iterator it = a.find(b);
 	check(it != a.end(), str(b) + " not found in map:\n" + str(a));
 	return it->second;
 }
-template<class T1, class T2> static ostream& operator << (ostream& out, const map<T1, T2>& m)
+template<class T1, class T2> static ostream& operator << (ostream& out, const std::map<T1, T2>& m)
 {
-	for (typename map<T1, T2>::const_iterator it = m.begin(); it != m.end(); ++it)
+	for (typename std::map<T1, T2>::const_iterator it = m.begin(); it != m.end(); ++it)
 	{
 		out << *it << endl; 
 	}
 	return out;
 }
-template<class T1, class T2> static ostream& operator << (ostream& out, const map<T1, T2*>& m)
+template<class T1, class T2> static ostream& operator << (ostream& out, const std::map<T1, T2*>& m)
 {
-	for (typename map<T1, T2*>::const_iterator it = m.begin(); it != m.end(); ++it)
+	for (typename std::map<T1, T2*>::const_iterator it = m.begin(); it != m.end(); ++it)
 	{
 		out << it->first << " " << *(it->second) << endl; 
 	}
 	return out;
 }
-template<class T1, class T2> static T2 sum_right (const map<T1, T2>& m)
+template<class T1, class T2> static T2 sum_right (const std::map<T1, T2>& m)
 {
 	T2 ret = 0;
-	for (typename map<T1, T2>::const_iterator it = m.begin(); it != m.end(); ++it)
+	for (typename std::map<T1, T2>::const_iterator it = m.begin(); it != m.end(); ++it)
 	{
 		ret += it->second;
 	}
 	return ret;
 }
-template<class T1, class T2, class T3, class T4> static void operator += (map<T1, T2>& a, const map<T3, T4>& b)
+template<class T1, class T2, class T3, class T4> static void operator += (std::map<T1, T2>& a, const std::map<T3, T4>& b)
 {
-	for (typename map<T3, T4>::const_iterator it = b.begin(); it != b.end(); ++it)
+	for (typename std::map<T3, T4>::const_iterator it = b.begin(); it != b.end(); ++it)
 	{
 		a[it->first] += it->second;
 	}
 }
-template<class T1, class T2, class T3, class T4> static void operator-= (map<T1, T2>& a, const map<T3, T4>& b)
+template<class T1, class T2, class T3, class T4> static void operator-= (std::map<T1, T2>& a, const std::map<T3, T4>& b)
 {
-	for (typename map<T3, T4>::const_iterator it = b.begin(); it != b.end(); ++it)
+	for (typename std::map<T3, T4>::const_iterator it = b.begin(); it != b.end(); ++it)
 	{
 		a[it->first] -= it->second;
 	}
 }
-template<class T1, class T2, class T3, class T4> static void operator/= (map<T1, T2>& a, const map<T3, T4>& b)
+template<class T1, class T2, class T3, class T4> static void operator/= (std::map<T1, T2>& a, const std::map<T3, T4>& b)
 {
-	for (typename map<T3, T4>::const_iterator it = b.begin(); it != b.end(); ++it)
+	for (typename std::map<T3, T4>::const_iterator it = b.begin(); it != b.end(); ++it)
 	{
 		a[it->first] /= it->second;
 	}
 }
-template<class T1, class T2, class T3, class T4> static void operator*= (map<T1, T2>& a, const map<T3, T4>& b)
+template<class T1, class T2, class T3, class T4> static void operator*= (std::map<T1, T2>& a, const std::map<T3, T4>& b)
 {
-	for (typename map<T3, T4>::const_iterator it = b.begin(); it != b.end(); ++it)
+	for (typename std::map<T3, T4>::const_iterator it = b.begin(); it != b.end(); ++it)
 	{
 		a[it->first] *= it->second;
 	}
 }
-template<class T1, class T2, class T3> static void operator*= (map<T1, T2>& a, const T3& b)
+template<class T1, class T2, class T3> static void operator*= (std::map<T1, T2>& a, const T3& b)
 {
-	for (typename map<T1, T2>::iterator it = a.begin(); it != a.end(); ++it)
+	for (typename std::map<T1, T2>::iterator it = a.begin(); it != a.end(); ++it)
 	{
 		it->second *= b;
 	}
 }
-template<class T1, class T2, class T3> static void operator/= (map<T1, T2>& a, const T3& b)
+template<class T1, class T2, class T3> static void operator/= (std::map<T1, T2>& a, const T3& b)
 {
-	for (typename map<T1, T2>::iterator it = a.begin(); it != a.end(); ++it)
+	for (typename std::map<T1, T2>::iterator it = a.begin(); it != a.end(); ++it)
 	{
 		it->second /= b;
 	}
@@ -793,18 +794,18 @@ static void prt_line(ostream& out = cout)
 {
 	out << "------------------------------" << endl;
 }
-template<class T> T read(const string& data)
+template<class T> T read(const std::string& data)
 {
 	T val;
-	stringstream ss;
+	std::stringstream ss;
 	ss << boolalpha << data;
 	check(ss >> val, "cannot read string '" + data + "' into variable with type '" + typeid(T).name() + "'");
 	return val;
 }
 //STRING OPERATIONS
-static string ordinal(size_t n)
+static std::string ordinal(size_t n)
 {
-	string s = str(n);
+	std::string s = str(n);
 	if (n < 100)
 	{
 		char c = nth_last(s);
@@ -823,11 +824,11 @@ static string ordinal(size_t n)
 	}
 	return s + "th";
 }
-static void trim(string& str)
+static void trim(std::string& str)
 {
     size_t startpos = str.find_first_not_of(" \t\n");
     size_t endpos = str.find_last_not_of(" \t\n");
-	if(string::npos == startpos || string::npos == endpos)  
+	if(std::string::npos == startpos || std::string::npos == endpos)  
     {  
         str = "";  
     }  
@@ -836,31 +837,31 @@ static void trim(string& str)
         str = str.substr(startpos, endpos-startpos + 1);
 	}
 }
-static bool in(const string& str, const string& search)
+static bool in(const std::string& str, const std::string& search)
 {
-	return (str.find(search) != string::npos);
+	return (str.find(search) != std::string::npos);
 }
-static bool in(const string& str, const char* search)
+static bool in(const std::string& str, const char* search)
 {
-	return in(str, string(search));
+	return in(str, std::string(search));
 }
-template<class T> vector<T>& split(const string& original, const char delim = ' ')
+template<class T> std::vector<T>& split(const std::string& original, const char delim = ' ')
 {
-	static vector<T> vect;
+	static std::vector<T> vect;
 	vect.clear();
-	stringstream ss;
+	std::stringstream ss;
 	ss << original;
-	string s;
+	std::string s;
 	while (getline(ss, s, delim))
 	{
 		vect += read<T>(s);
 	}
 	return vect;
 }
-template<class T, class R >string join(const R& r, const string joinStr = "")
+template<class T, class R >std::string join(const R& r, const std::string joinStr = "")
 {
 	typename range_iterator<R>::type b = boost::begin(r);
-	string s = str(*b);
+	std::string s = str(*b);
 	++b;
 	for (; b != end(r); ++b)
 	{
@@ -870,13 +871,13 @@ template<class T, class R >string join(const R& r, const string joinStr = "")
 }
 
 //HELPER STRUCTS
-template<class T> struct View: public sub_range<pair <T*, T*> >
+template<class T> struct View: public sub_range<std::pair <T*, T*> >
 {	
-	View(pair<T*, T*>& p):
-		sub_range<pair <T*, T*> >(p)
+	View(std::pair<T*, T*>& p):
+		sub_range<std::pair <T*, T*> >(p)
 	{}
 	View(T* first = 0, T* second = 0):
-		sub_range<pair <T*, T*> >(make_pair(first, second))
+		sub_range<std::pair <T*, T*> >(make_pair(first, second))
 	{}
 	T& at(size_t i)
 	{
@@ -896,7 +897,19 @@ template<class T> struct View: public sub_range<pair <T*, T*> >
 	}
 };
 
-typedef const tuple<View<double>&, vector<double>&>& TVWDVD;
+typedef const tuple<View<double>&, std::vector<double>&>& TVWDVD;
 typedef const tuple<View<double>&, View<double>&>& TVWDVWD;
+
+//HACK!! Added by Sergio. For some reason "#include <boost/assign/std/vector.hpp>" does not work
+template< class V, class A, class V2 >
+inline list_inserter< assign_detail::call_push_back< std::vector<V,A> >, V >
+operator+=( std::vector<V,A>& c, V2 v )
+{
+        return push_back( c )( v );
+}
+
+
+
+}; /* rnnlib namespace */
 
 #endif
