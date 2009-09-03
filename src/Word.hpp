@@ -174,7 +174,7 @@ struct Word
 	}
 };
 
-ostream& operator << (ostream& out, const WordToken& tok)
+inline ostream& operator << (ostream& out, const WordToken& tok)
 {
 	vector<const Word*> words;
 	for (const WordToken* t = &tok; t && t->word; t = t->prev)
@@ -188,7 +188,7 @@ ostream& operator << (ostream& out, const WordToken& tok)
 	return out;
 }
 
-ostream& operator << (ostream& out, const Word& w)
+inline ostream& operator << (ostream& out, const Word& w)
 {
 	out << w.str << " " << w.labelStr;
 	return out;

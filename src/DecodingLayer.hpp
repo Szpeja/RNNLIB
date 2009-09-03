@@ -29,7 +29,7 @@ struct word_less: public less<Word*>
 		return w1->labelStr < w2->labelStr;
 	}
 };
-ostream& operator << (ostream& out, const vector<Word*>& words)
+inline ostream& operator << (ostream& out, const vector<Word*>& words)
 {
 	if (words.size())
 	{
