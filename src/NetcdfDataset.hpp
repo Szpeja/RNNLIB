@@ -130,9 +130,6 @@ struct DataHeader
 	int totalTargetStringLength;
 
 	//functions
-
-	DataHeader () { }
-	
 	DataHeader(const string& filename, const string& task, double dataFraction):
 		outputSize(0),
 		numTimesteps(0),
