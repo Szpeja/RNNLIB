@@ -34,7 +34,7 @@ struct Optimiser
 	virtual void build() = 0;
 };
 
-ostream& operator << (ostream& out, const Optimiser& o)
+inline ostream& operator << (ostream& out, const Optimiser& o)
 {
 	o.print(out);
 	return out;
