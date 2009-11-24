@@ -129,6 +129,17 @@ struct DataHeader
 	int numTimesteps;
 	int totalTargetStringLength;
 
+	//customized constructor for a regression task
+	DataHeader(int inputPattSize, int targetPattSize):
+		numTimesteps(0),
+		numDims(1),
+		totalTargetStringLength(0),
+		inputSize (inputPattSize),
+		outputSize (targetPattSize),
+		numSequences (0)
+	{
+	}
+	
 	//functions
 	DataHeader(const string& filename, const string& task, double dataFraction):
 		outputSize(0),
