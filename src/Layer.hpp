@@ -21,6 +21,8 @@ along with RNNLIB.  If not, see <http://www.gnu.org/licenses/>.*/
 #include "list_of.hpp"
 #include "SeqBuffer.hpp"
 #include "DataExporter.hpp"
+#include "WeightContainer.hpp"
+
 
 //extern bool verbose;
 
@@ -35,9 +37,11 @@ struct Layer: public DataExporter
 	SeqBuffer<double> inputErrors;
 	SeqBuffer<double> outputErrors;
 	Layer* source;
+	WeightContainer* weightContainer;
 	
+
 	//functions
-	Layer(const string& name, size_t numSeqDims, size_t inputSize, size_t outputSize, Layer* src = 0):
+	Layer(const string& name, size_t numSeqDims, size_t inputSize, size_t outputSize, WeightContainer* wc, Layer* src = 0):
 		DataExporter(name),
 		inputActivations(inputSize),
 		outputActivations(outputSize),
@@ -45,10 +49,11 @@ struct Layer: public DataExporter
 		outputErrors(outputSize),
 		source(src)
 	{
+		weightContainer = wc;
 		assert(inputSize || outputSize);
 		directions.resize(numSeqDims, 1);
 	}
-	Layer(const string& name, const vector<int>& dirs, size_t inputSize, size_t outputSize, Layer* src = 0):
+	Layer(const string& name, const vector<int>& dirs, size_t inputSize, size_t outputSize, WeightContainer* wc, Layer* src = 0):
 		DataExporter(name),
 		directions(dirs),
 		inputActivations(inputSize),
@@ -57,6 +62,7 @@ struct Layer: public DataExporter
 		outputErrors(outputSize),
 		source(src)
 	{
+		weightContainer = wc;
 		assert(inputSize || outputSize);
 		loop(int d, directions)
 		{

@@ -66,8 +66,8 @@ struct DecodingLayer: public TranscriptionLayer
 	
 	//functions
 	DecodingLayer(ostream& out, const string& name, const bimap<int, string>& labels, 
-								  const string& dictFilename, const string& bigramFilename = "", int nb = 1, int fl = -1):
-		TranscriptionLayer(out, name, labels),
+								  const string& dictFilename, WeightContainer* wc, const string& bigramFilename = "", int nb = 1, int fl = -1):
+		TranscriptionLayer(out, name, labels, wc),
 		nullToken(new WordToken()),
 		nBest(nb),
 		fixedLength(fl),

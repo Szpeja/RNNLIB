@@ -57,6 +57,8 @@ struct Trainer: public DataExporter
 	DatasetErrors testErrors;
 	DatasetErrors valErrors;
 	double inputNoiseDev;
+	WeightContainer* weightContainer;
+	
 	
 	//functions
 	Trainer(ostream& o, Mdrnn* n, Optimiser* opt, ConfigFile& conf, const string& name = "trainer"):
@@ -112,7 +114,8 @@ struct Trainer: public DataExporter
 		
 		//init loop variables
 #ifndef OP_TRACKING
-		int numWeights = WeightContainer::instance().weights.size();
+		//int numWeights = WeightContainer::instance().weights.size();
+		int numWeights = weightContainer->weights.size();
 #endif
 		map<string, pair<int, DatasetErrors> > bestTestErrors;
 		map<string, pair<int, DatasetErrors> > bestValErrors;
@@ -316,7 +319,8 @@ struct Trainer: public DataExporter
 	void update_weights()
 	{
 		optimiser->update_weights();
-		WeightContainer::instance().reset_derivs();
+		//WeightContainer::instance().reset_derivs();
+		weightContainer->reset_derivs();
 	}
 	bool check_for_best(const DatasetErrors& currentErrors, map<string, pair<int, DatasetErrors> >& bestErrors, int epoch)
 	{
@@ -421,7 +425,14 @@ struct Trainer: public DataExporter
 			out << "WARNING: all data sets empty" << endl;
 		}
 	}
+
+	void set_weight_container(WeightContainer* wc) {
+		weightContainer = wc;
+	}
+
 };
+
+	
 
 };
 

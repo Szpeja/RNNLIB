@@ -37,8 +37,8 @@ struct TranscriptionLayer: public SoftmaxLayer
 	vector<LogDouble> dEdYTerms;
 	
 	//functions
-	TranscriptionLayer(ostream& o, const string& name, const bimap<int, string>& lab):
-		SoftmaxLayer(name, 1, lab.size() + 1),
+	TranscriptionLayer(ostream& o, const string& name, const bimap<int, string>& lab, WeightContainer* wc):
+		SoftmaxLayer(name, 1, lab.size() + 1, wc),
 		out(o),
 		labels(lab),
 		blank(labels.size()),

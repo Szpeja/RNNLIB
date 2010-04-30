@@ -44,9 +44,10 @@ struct Rprop: public DataExporter, public Optimiser
 	vector<double>& derivs;
 	vector<double>& wts;
 	vector<double>& plasts;
+	WeightContainer* weightContainer;
 
 	//functions
-	Rprop(ostream& o, bool on = false, const string& name = "optimiser"):
+	Rprop(ostream& o, WeightContainer* wc,  bool on = false, const string& name = "optimiser"):
 		DataExporter(name),
 		out(o),
 		etaChange(0.01),
@@ -57,10 +58,11 @@ struct Rprop: public DataExporter, public Optimiser
 		initDelta(0.01),
 		prevAvgDelta(0),
 		online(on),
-		derivs(WeightContainer::instance().derivatives),
-		wts(WeightContainer::instance().weights),
-		plasts(WeightContainer::instance().plasticities)
+		derivs(wc->derivatives),
+		wts(wc->weights),
+		plasts(wc->plasticities)
 	{
+		weightContainer = wc;
 		if (online)
 		{
 			SAVE(prevAvgDelta);
@@ -126,8 +128,8 @@ struct Rprop: public DataExporter, public Optimiser
 			prevDerivs.resize(wts.size());
 			fill(deltas, initDelta);
 			fill(prevDerivs, 0);
-			WeightContainer::instance().save_by_conns(deltas, "deltas");
-			WeightContainer::instance().save_by_conns(prevDerivs, "prevDerivs");
+			weightContainer->save_by_conns(deltas, "deltas");
+			weightContainer->save_by_conns(prevDerivs, "prevDerivs");
 		}
 	}
 	void print(ostream& out = cout) const

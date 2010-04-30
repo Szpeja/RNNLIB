@@ -28,13 +28,15 @@ struct Connection: public Named
 	//data
 	Layer* from;
 	Layer* to;
+	WeightContainer* weightContainer;
 	
 	//functions
-	Connection(const string& name, Layer* f, Layer* t):
+	Connection(const string& name, Layer* f, Layer* t, WeightContainer* wc):
 		Named(name),
 		from(f),
 		to(t)
 	{
+		weightContainer = wc;
 		assert(from);
 		assert(to);
 		assert(from->output_size());

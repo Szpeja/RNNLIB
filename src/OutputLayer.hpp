@@ -34,8 +34,8 @@ struct OutputLayer: public Layer
 	set<string> criteria;
 	
 	//functions
-	OutputLayer(const string& name, size_t numSeqDims, size_t size):
-		Layer(name, numSeqDims, size, size)
+	OutputLayer(const string& name, size_t numSeqDims, size_t size, WeightContainer* wc):
+		Layer(name, numSeqDims, size, size, wc)
 	{
 	}
 	virtual double calculate_errors(const DataSequence& seq) = 0;

@@ -26,8 +26,8 @@ namespace rnnlib {
 struct LinearOutputLayer: public OutputLayer
 {	
 	//functions
-	LinearOutputLayer(const string& name, size_t numSeqDims, size_t size):
-		OutputLayer(name, numSeqDims, size)
+	LinearOutputLayer(const string& name, size_t numSeqDims, size_t size, WeightContainer* wc):
+		OutputLayer(name, numSeqDims, size, wc)
 	{
 		display(this->outputErrors, "errors");
 		display(this->outputActivations, "activations");

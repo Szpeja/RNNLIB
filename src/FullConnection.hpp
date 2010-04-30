@@ -40,10 +40,10 @@ struct FullConnection: public Connection
 	pair<size_t, size_t> paramRange;
 
 	//functions
-	FullConnection(Layer* f, Layer* t, const vector<int>& d = list_of<int>(), FullConnection* s = 0):
-		Connection(make_name(f, t, d), f, t),
+	FullConnection(Layer* f, Layer* t, WeightContainer* wc,  const vector<int>& d = list_of<int>(), FullConnection* s = 0):
+		Connection(make_name(f, t, d), f, t, wc),
 		source(s),
-		paramRange(source ? source->paramRange : WeightContainer::instance().new_parameters(this->from->output_size() * this->to->input_size(), this->from->name, this->to->name, name))
+		paramRange(source ? source->paramRange : wc->new_parameters(this->from->output_size() * this->to->input_size(), this->from->name, this->to->name, name))
 	{
 		set_delay(d);
 		assert(num_weights() == (this->from->output_size() * this->to->input_size()));
@@ -75,15 +75,15 @@ struct FullConnection: public Connection
 	}
 	const View<double> weights()
 	{
-		return WeightContainer::instance().get_weights(paramRange);
+		return weightContainer->get_weights(paramRange);
 	}
 	const View<double> derivs()
 	{
-		return WeightContainer::instance().get_derivs(paramRange);
+		return weightContainer->get_derivs(paramRange);
 	}
 	const View<double> plasts()
 	{
-		return WeightContainer::instance().get_plasts(paramRange);
+		return weightContainer->get_plasts(paramRange);
 	}
 	size_t num_weights() const
 	{

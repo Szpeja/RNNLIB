@@ -25,8 +25,8 @@ namespace rnnlib {
 struct InputLayer: public Layer
 {
 	//functions
-	InputLayer(const string& name, size_t numSeqDims, size_t size, const bimap<int, string>& labels):
-		Layer(name, numSeqDims, 0, size)
+	InputLayer(const string& name, size_t numSeqDims, size_t size, const bimap<int, string>& labels, WeightContainer* wc):
+		Layer(name, numSeqDims, 0, size, wc)
 	{
 		const bimap<int, string>* labelPtr = labels.empty() ? 0 : &labels;
 		display(this->outputActivations, "activations", labelPtr);

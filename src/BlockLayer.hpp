@@ -33,8 +33,8 @@ struct BlockLayer: public Layer
 	vector<size_t> outSeqShape;
 		
 	//functions
-	BlockLayer(Layer* src, const vector<size_t>& blockshape):
-		Layer(src->name + "_block", src->num_seq_dims(), 0, product(blockshape) * src->output_size(), src),
+	BlockLayer(Layer* src, const vector<size_t>& blockshape, WeightContainer* wc):
+		Layer(src->name + "_block", src->num_seq_dims(), 0, product(blockshape) * src->output_size(), wc, src),
 		blockShape(blockshape),
 		blockOffset(this->num_seq_dims()),
 		inCoords(this->num_seq_dims()),
@@ -44,7 +44,7 @@ struct BlockLayer: public Layer
 	{
 		assert(blockShape.size() == this->num_seq_dims());
 		assert(!in(blockShape, 0));
-		WeightContainer::instance().link_layers(this->source->name, this->name, this->source->name + "_to_" + this->name);
+		weightContainer->link_layers(this->source->name, this->name, this->source->name + "_to_" + this->name);
 		display(this->outputActivations, "activations");
 		display(this->outputErrors, "errors");
 	}

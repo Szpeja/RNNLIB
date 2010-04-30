@@ -37,17 +37,22 @@ struct SteepestDescent: public DataExporter, public Optimiser
 	vector<double>& wts;
 	vector<double>& derivs;
 	vector<double>& plasts;
+	WeightContainer* weightContainer;
 
 	//functions
-	SteepestDescent(ostream& o, double lr = 1e-4, double mom = 0.9, const string& name = "optimiser"):
+	SteepestDescent(ostream& o,  WeightContainer* wc, double lr = 1e-4, double mom = 0.9, const string& name = "optimiser"):
 		DataExporter(name),
 		out(o),
 		learnRate(lr),
 		momentum(mom),
-		wts(WeightContainer::instance().weights),
-		derivs(WeightContainer::instance().derivatives),
-		plasts(WeightContainer::instance().plasticities)
+		wts(wc->weights),
+		derivs(wc->derivatives),
+		plasts(wc->plasticities)
 	{
+		weightContainer = wc;
+		//wts(weightContainer->weights);
+		//derivs(weightContainer->derivatives);
+		//plasts(weightContainer->plasticities);
 		build();
 	}
 	void update_weights()
@@ -75,7 +80,8 @@ struct SteepestDescent: public DataExporter, public Optimiser
 		{		
 			deltas.resize(wts.size());
 			fill(deltas, 0);
-			WeightContainer::instance().save_by_conns(deltas, "deltas");
+			//WeightContainer::instance().save_by_conns(deltas, "deltas");
+			weightContainer->save_by_conns(deltas, "deltas");
 		}
 	}
 	void print(ostream& out = cout) const

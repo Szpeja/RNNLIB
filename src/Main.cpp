@@ -123,8 +123,10 @@ int main(int argc, char* argv[])
 	out << *net;
 	
 	//build weight container after net is created
-	WeightContainer::instance().build();
-	int numWeights = WeightContainer::instance().weights.size();
+//	WeightContainer::instance().build();
+	net->weightContainer.build();
+//	int numWeights = WeightContainer::instance().weights.size();
+	int numWeights = net->weightContainer.weights.size();
 	out << numWeights << " weights" << endl << endl;
 	
 	//build the network after the weight container
@@ -134,13 +136,14 @@ int main(int argc, char* argv[])
 	Optimiser* opt;
 	if (conf.get<string>("optimiser", "steepest") == "rprop")
 	{
-		opt = new Rprop(out);
+		opt = new Rprop(out, &(net->weightContainer));
 	}
 	else
 	{
-		opt = new SteepestDescent(out, conf.get<double>("learnRate", 1e-4), conf.get<double>("momentum", 0.9));
+		opt = new SteepestDescent(out, &(net->weightContainer), conf.get<double>("learnRate", 1e-4), conf.get<double>("momentum", 0.9));
 	}
 	Trainer trainer(out, net, opt, conf);
+	trainer.set_weight_container(&(net->weightContainer));
 	out << "setting random seed to " << Random::set_seed(conf.get<unsigned long int>("randSeed", 0)) << endl << endl;
 	if (conf.get<bool>("loadWeights", false))
 	{
@@ -150,7 +153,8 @@ int main(int argc, char* argv[])
 	}
 	double initWeightRange = conf.get<double>("initWeightRange", 0.1);
 	out << "randomising uninitialised weights with mean 0 std. dev. " << initWeightRange << endl << endl;
-	WeightContainer::instance().randomise(initWeightRange);	
+	//WeightContainer::instance().randomise(initWeightRange);	
+	net->weightContainer.randomise(initWeightRange);	
 	out << "optimiser:" << endl << *opt << endl;
 	if (gradCheck)
  	{
@@ -160,6 +164,7 @@ int main(int argc, char* argv[])
 		prt_line(out);
  		GradientCheck(out, net, *testSeq, conf.get<int>("sigFigs", 6), 
 			conf.get<double>("pert", 1e-5), conf.get<bool>("verbose", false));
+		
  	}
 	else if (jacobianCoords.size())
 	{

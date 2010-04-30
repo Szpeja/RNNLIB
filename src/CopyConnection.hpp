@@ -25,14 +25,14 @@ namespace rnnlib {
 struct CopyConnection: public Connection
 {
 	//functions
-	CopyConnection(Layer* f, Layer* t):
-		Connection(f->name + "_to_" + t->name, f, t)
+	CopyConnection(Layer* f, Layer* t, WeightContainer* wc):
+		Connection(f->name + "_to_" + t->name, f, t, wc)
 	{
 		assert(this->from != this->to);
 		assert(this->from->output_size() == this->to->input_size());
 		assert(this->from->output_size());
 		this->to->source = this->from;
-		WeightContainer::instance().link_layers(this->from->name, this->to->name);
+		weightContainer->link_layers(this->from->name, this->to->name);
 	}
 	virtual ~CopyConnection(){}
 	void feed_forward(const vector<int>& coords)

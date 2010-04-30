@@ -15,7 +15,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with RNNLIB.  If not, see <http://www.gnu.org/licenses/>.*/
 
-//hanz
 
 #ifndef _INCLUDED_WeightContainer_h  
 #define _INCLUDED_WeightContainer_h  
@@ -44,16 +43,35 @@ struct WeightContainer: public DataExporter
 	vector<double> plasticities;
 	multimap<string, tuple<string, string, int, int> > connections;
 	
+	//WeightContainer wc;
+
+
 	//functions
 	WeightContainer():
 		DataExporter("weightContainer")
 	{
 	}
-	static WeightContainer& instance()
+
+	 WeightContainer& instance()
+	{
+		
+	}
+
+
+/*	WeightContainer instance() {
+		return wc;
+	}
+*/
+
+/*	static WeightContainer& instance()
 	{
 		static WeightContainer wc;
 		return wc;
 	}
+*/
+
+
+
 	void link_layers(const string& fromName, const string& toName, const string& connName = "", int paramBegin = -1, int paramEnd = -1)
 	{
 		connections.insert(make_pair(toName, make_tuple(fromName, connName, paramBegin, paramEnd)));

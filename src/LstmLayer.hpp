@@ -53,8 +53,8 @@ template <class CI, class CO, class G> struct LstmLayer: public Layer
 #endif		
 	
 	//functions
-	LstmLayer(const string& name, const vector<int>& directions, size_t nb, size_t cpb = 1):
-			Layer(name, directions, (cpb + directions.size() + 2) * nb, nb),	
+	LstmLayer(const string& name, const vector<int>& directions, size_t nb, WeightContainer* wc, size_t cpb = 1):
+			Layer(name, directions, (cpb + directions.size() + 2) * nb, nb, wc),	
 			numBlocks(nb),
 			cellsPerBlock(cpb),
 			numCells(numBlocks * cellsPerBlock),
@@ -75,7 +75,7 @@ template <class CI, class CO, class G> struct LstmLayer: public Layer
 			nextFgActs(this->num_seq_dims()),
 			nextCellErrors(this->num_seq_dims())
 #ifdef PEEPS
-			,peepRange(WeightContainer::instance().new_parameters(peepsPerBlock*numBlocks, name, name, name + "_peepholes"))
+			,peepRange(weightContainer->new_parameters(peepsPerBlock*numBlocks, name, name, name + "_peepholes"))
 #endif
 	{		
 		//initialise the state delays
@@ -124,7 +124,7 @@ template <class CI, class CO, class G> struct LstmLayer: public Layer
 			oldStates[d] = states.at(range_plus(delayedCoords, coords, stateDelays[d]));
 		}
 #ifdef PEEPS
-		const double* peepWtIt = WeightContainer::instance().get_weights(peepRange).begin();
+		const double* peepWtIt = weightContainer->get_weights(peepRange).begin();
 #endif
 		int cellStart = 0;
 		int cellEnd = cellsPerBlock;
@@ -219,7 +219,7 @@ template <class CI, class CO, class G> struct LstmLayer: public Layer
 		const double* outputErrorBegin = this->outputErrors[coords].begin();
 		double* errorIt = inErrs.begin();
 #ifdef PEEPS
-		const double* peepWtIt = WeightContainer::instance().get_weights(peepRange).begin();
+		const double* peepWtIt = weightContainer->get_weights(peepRange).begin();
 #endif
 		loop(int d, range(this->num_seq_dims()))
 		{
@@ -318,7 +318,7 @@ template <class CI, class CO, class G> struct LstmLayer: public Layer
 	{
 		const double* stateBegin = states[coords].begin();
 		const double* errorBegin = this->inputErrors[coords].begin();
-		double* pdIt = WeightContainer::instance().get_derivs(peepRange).begin();
+		double* pdIt = weightContainer->get_derivs(peepRange).begin();
 		loop(int d, range(this->num_seq_dims()))
 		{
 			oldStates[d] = states.at(range_plus(delayedCoords, coords, stateDelays[d]));

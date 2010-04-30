@@ -29,8 +29,8 @@ struct BiasLayer: public Layer
 	View<double> errors;
 	
 	//functions
-	BiasLayer():
-		Layer("bias", 0, 0, 1),
+	BiasLayer(WeightContainer* wc):
+		Layer("bias", 0, 0, 1, wc),
 		acts(this->outputActivations[0]),
 		errors(this->outputErrors[0])
 	{

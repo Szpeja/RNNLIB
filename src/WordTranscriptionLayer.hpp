@@ -12,8 +12,8 @@ struct WordTranscriptionLayer: public DecodingLayer
 
 	//functions
 	WordTranscriptionLayer(ostream& out, const string& name, const bimap<int, string>& labels, 
-				  const string& dictFilename, const string& bigramFilename = "", int nb = 1, int fl = -1):
-		DecodingLayer(out, name, labels, dictFilename, bigramFilename, nb, fl)
+				  const string& dictFilename, WeightContainer* wc, const string& bigramFilename = "", int nb = 1, int fl = -1):
+		DecodingLayer(out, name, labels, dictFilename, bigramFilename, wc, nb, fl)
 	{
 		loop(PSPW& p, this->dict)
 		{

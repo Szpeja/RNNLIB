@@ -30,8 +30,8 @@ struct RegressionLayer: public LinearOutputLayer
 	SeqBuffer<double> targets;
 	
 	//functions
-	RegressionLayer(ostream& o, const string& name, size_t numSeqDims, size_t size):
-		LinearOutputLayer(name, numSeqDims, size),
+	RegressionLayer(ostream& o, const string& name, size_t numSeqDims, size_t size, WeightContainer* wc):
+		LinearOutputLayer(name, numSeqDims, size, wc),
 		out(o),
 		targets(size)
 	{

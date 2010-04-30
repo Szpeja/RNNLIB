@@ -24,13 +24,13 @@ namespace rnnlib {
 
 template <class F> struct NeuronLayer: public Layer
 {
-	NeuronLayer(const string& name, size_t numDims, size_t size):
-		Layer(name, numDims, size, size)
+	NeuronLayer(const string& name, size_t numDims, size_t size, WeightContainer* wc):
+		Layer(name, numDims, size, size, wc)
 	{
 		init();
 	}
-	NeuronLayer(const string& name, const vector<int>& directions, size_t size):
-		Layer(name, directions, size, size)
+	NeuronLayer(const string& name, const vector<int>& directions, size_t size, WeightContainer* wc):
+		Layer(name, directions, size, size, wc)
 	{
 		init();
 	}

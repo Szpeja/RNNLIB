@@ -46,10 +46,13 @@ struct GradientCheck
 			seq(s),
 			perturbation(pert),
 			sigFigs(sf),
-			weights(WeightContainer::instance().weights),
-			derivs(WeightContainer::instance().derivatives),
+			//weights(WeightContainer::instance().weights),
+			weights(net->weightContainer.weights),
+			//derivs(WeightContainer::instance().derivatives),
+			derivs(net->weightContainer.derivatives),
 			verbose(verb),
-			conns(WeightContainer::instance().connections)
+			//conns(WeightContainer::instance().connections)
+			conns(net->weightContainer.connections)
 	{		
 		GlobalVariables::instance().setRunningGradTest (true);
 		PRINT (perturbation, out);
