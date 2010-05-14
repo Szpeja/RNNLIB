@@ -28,8 +28,8 @@ struct GatherLayer: public Layer
 	vector<Layer*> sources;
 		
 	//functions
-	GatherLayer(const string& name, vector<Layer*>& srcs, WeightContainer* wc):
-		Layer(name, srcs.front()->num_seq_dims(), 0, get_size(srcs), wc, srcs.front()),
+	GatherLayer(const string& name, vector<Layer*>& srcs, WeightContainer* wc, DataExportHandler* dEH):
+		Layer(name, srcs.front()->num_seq_dims(), 0, get_size(srcs), wc, dEH, srcs.front()),
 		sources(srcs)
 	{
 		this->source = sources.front();

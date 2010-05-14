@@ -136,11 +136,11 @@ int main(int argc, char* argv[])
 	Optimiser* opt;
 	if (conf.get<string>("optimiser", "steepest") == "rprop")
 	{
-		opt = new Rprop(out, &(net->weightContainer));
+		opt = new Rprop(out, &(net->weightContainer), &(net->dataExportHandler));
 	}
 	else
 	{
-		opt = new SteepestDescent(out, &(net->weightContainer), conf.get<double>("learnRate", 1e-4), conf.get<double>("momentum", 0.9));
+		opt = new SteepestDescent(out, &(net->weightContainer), &(net->dataExportHandler), conf.get<double>("learnRate", 1e-4), conf.get<double>("momentum", 0.9));
 	}
 	Trainer trainer(out, net, opt, conf);
 	trainer.set_weight_container(&(net->weightContainer));
@@ -148,7 +148,8 @@ int main(int argc, char* argv[])
 	if (conf.get<bool>("loadWeights", false))
 	{
 		out << "loading dynamic data from "  << conf.filename << endl;
-		DataExportHandler::instance().load(conf, out);
+		//DataExportHandler::instance().load(conf, out);
+		net->dataExportHandler.load(conf, out);
 		out << "epoch = " << trainer.epoch << endl << endl;
 	}
 	double initWeightRange = conf.get<double>("initWeightRange", 0.1);
@@ -189,7 +190,8 @@ int main(int argc, char* argv[])
 
 		}	
 		net->feed_back();
-		DataExportHandler::instance().display(displayPath);
+		//DataExportHandler::instance().display(displayPath);
+		net->dataExportHandler.display(displayPath);
 	}
 	else if (display)
 	{
@@ -200,7 +202,8 @@ int main(int argc, char* argv[])
 		net->train(*testSeq);
 		net->print_output_shape(out);
 		out << "errors:" << endl << net->outputLayer->errorMap;
-		DataExportHandler::instance().display(displayPath);
+		//DataExportHandler::instance().display(displayPath);
+		net->dataExportHandler.display(displayPath);
 	}
 	else if (conf.get<bool>("errorTest", false))
 	{

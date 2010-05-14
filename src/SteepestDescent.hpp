@@ -40,8 +40,8 @@ struct SteepestDescent: public DataExporter, public Optimiser
 	WeightContainer* weightContainer;
 
 	//functions
-	SteepestDescent(ostream& o,  WeightContainer* wc, double lr = 1e-4, double mom = 0.9, const string& name = "optimiser"):
-		DataExporter(name),
+	SteepestDescent(ostream& o,  WeightContainer* wc, DataExportHandler* dEH, double lr = 1e-4, double mom = 0.9, const string& name = "optimiser"):
+		DataExporter(name, dEH),
 		out(o),
 		learnRate(lr),
 		momentum(mom),

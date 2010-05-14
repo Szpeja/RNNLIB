@@ -29,8 +29,8 @@ struct AutoregressionLayer: public LinearOutputLayer
 	vector<double> seqMeanTargs;
 			
 	//functions
-	AutoregressionLayer(const string& name, Layer* source, WeightContainer* wc):
-		LinearOutputLayer(name, source->num_seq_dims(), source->output_size(), wc),
+	AutoregressionLayer(const string& name, Layer* source, WeightContainer* wc, DataExportHandler* dEH):
+		LinearOutputLayer(name, source->num_seq_dims(), source->output_size(), wc, dEH),
 		targets(this->output_size())
 	{
 		seqMeanTargs.resize(this->output_size());

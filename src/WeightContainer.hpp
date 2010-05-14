@@ -43,25 +43,13 @@ struct WeightContainer: public DataExporter
 	vector<double> plasticities;
 	multimap<string, tuple<string, string, int, int> > connections;
 	
-	//WeightContainer wc;
-
 
 	//functions
-	WeightContainer():
-		DataExporter("weightContainer")
+	WeightContainer(DataExportHandler* dEH):
+		DataExporter("weightContainer", dEH)
 	{
 	}
 
-	 WeightContainer& instance()
-	{
-		
-	}
-
-
-/*	WeightContainer instance() {
-		return wc;
-	}
-*/
 
 /*	static WeightContainer& instance()
 	{
@@ -69,7 +57,6 @@ struct WeightContainer: public DataExporter
 		return wc;
 	}
 */
-
 
 
 	void link_layers(const string& fromName, const string& toName, const string& connName = "", int paramBegin = -1, int paramEnd = -1)

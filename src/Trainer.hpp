@@ -62,7 +62,7 @@ struct Trainer: public DataExporter
 	
 	//functions
 	Trainer(ostream& o, Mdrnn* n, Optimiser* opt, ConfigFile& conf, const string& name = "trainer"):
-		DataExporter(name),
+		DataExporter(name, &(n->dataExportHandler)),
 		out(o),
 		net(n),
 		optimiser(opt),
@@ -309,7 +309,8 @@ struct Trainer: public DataExporter
 		{
 			out << "saving to " << filename << endl;
 			config.set<bool>("loadWeights", true);
-			fout << config << DataExportHandler::instance();
+			//fout << config << DataExportHandler::instance();
+			fout << config << *dataExportHandler;
 		}
 		else
 		{

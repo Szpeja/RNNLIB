@@ -41,8 +41,8 @@ struct Layer: public DataExporter
 	
 
 	//functions
-	Layer(const string& name, size_t numSeqDims, size_t inputSize, size_t outputSize, WeightContainer* wc, Layer* src = 0):
-		DataExporter(name),
+	Layer(const string& name, size_t numSeqDims, size_t inputSize, size_t outputSize, WeightContainer* wc, DataExportHandler* dEH, Layer* src = 0):
+		DataExporter(name, dEH),
 		inputActivations(inputSize),
 		outputActivations(outputSize),
 		inputErrors(inputSize),
@@ -53,8 +53,8 @@ struct Layer: public DataExporter
 		assert(inputSize || outputSize);
 		directions.resize(numSeqDims, 1);
 	}
-	Layer(const string& name, const vector<int>& dirs, size_t inputSize, size_t outputSize, WeightContainer* wc, Layer* src = 0):
-		DataExporter(name),
+	Layer(const string& name, const vector<int>& dirs, size_t inputSize, size_t outputSize, WeightContainer* wc, DataExportHandler* dEH, Layer* src = 0):
+		DataExporter(name, dEH),
 		directions(dirs),
 		inputActivations(inputSize),
 		outputActivations(outputSize),

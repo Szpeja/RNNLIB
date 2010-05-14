@@ -52,6 +52,8 @@ struct Mdrnn
 {
 	//data
 	ostream& out;
+	DataExportHandler dataExportHandler;
+	WeightContainer weightContainer;
 	multimap<Layer*, Connection*> connections;
 	vector<Layer*> hiddenLayers;
 	vector<vector<Layer*> > hiddenLevels;
@@ -65,19 +67,19 @@ struct Mdrnn
 	double actSmoothing;
 	double actDecay;
 	vector<Layer*> recurrentLayers;
-	WeightContainer weightContainer;
 
 	//functions
 	Mdrnn(ostream& o, ConfigFile& conf, const DataHeader& data):
 		out(o),
-		inputLayer(new InputLayer("input", data.numDims, data.inputSize, data.inputLabels, &weightContainer)),
+		weightContainer (&dataExportHandler),
+		inputLayer(new InputLayer("input", data.numDims, data.inputSize, data.inputLabels, &weightContainer, &dataExportHandler)),
 		bidirectional(conf.get_list<bool>("bidirectional", true, data.numDims)),
 		symmetry(conf.get_list<bool>("symmetry", false, data.numDims)),
 		inputBlock(conf.get_list<size_t>("inputBlock", 0, data.numDims)),
-		inputBlockLayer(in(inputBlock, 0) ? 0 : add_layer(new BlockLayer(inputLayer, inputBlock, &weightContainer))),
+		inputBlockLayer(in(inputBlock, 0) ? 0 : add_layer(new BlockLayer(inputLayer, inputBlock, &weightContainer, &dataExportHandler))),
 		actSmoothing(conf.get<double>("actSmoothing", 0)),
 		actDecay(conf.get<double>("actDecay", 0)),
-		bias(&weightContainer)
+		bias(&weightContainer, &dataExportHandler)
 	{
 	}
 	virtual ~Mdrnn()
@@ -123,11 +125,11 @@ struct Mdrnn
 	}
 	Layer* gather_level(const string& name, int levelNum)
 	{
-		return add_layer(new GatherLayer(name, hiddenLevels[levelNum], &weightContainer));
+		return add_layer(new GatherLayer(name, hiddenLevels[levelNum], &weightContainer, &dataExportHandler));
 	}
 	Layer* collapse_layer(Layer* src, Layer* dest, const vector<bool>& activeDims = list_of<bool>())
 	{
-		Layer* layer = add_layer(new CollapseLayer (src, dest, &weightContainer, activeDims));
+		Layer* layer = add_layer(new CollapseLayer (src, dest, &weightContainer, &dataExportHandler, activeDims));
 		add_connection(new CopyConnection(layer, dest, &weightContainer));
 		return layer;
 	}	
@@ -158,23 +160,23 @@ struct Mdrnn
 		Layer* layer;
 		if (type == "tanh")
 		{
-			layer = new NeuronLayer<Tanh>(name, directions, size, &weightContainer);
+			layer = new NeuronLayer<Tanh>(name, directions, size, &weightContainer, &dataExportHandler);
 		}
 		else if (type == "linear")
 		{
-			layer = new NeuronLayer<Identity>(name, directions, size, &weightContainer);
+			layer = new NeuronLayer<Identity>(name, directions, size, &weightContainer, &dataExportHandler);
 		}
 		else if (type == "logistic")
 		{
-			layer = new NeuronLayer<Logistic>(name, directions, size, &weightContainer);
+			layer = new NeuronLayer<Logistic>(name, directions, size, &weightContainer, &dataExportHandler);
 		}
 		else if (type == "lstm")
 		{
-			layer = new LstmLayer<Tanh, Tanh, Logistic>(name, directions, size, &weightContainer, 1);
+			layer = new LstmLayer<Tanh, Tanh, Logistic>(name, directions, size, &weightContainer, &dataExportHandler, 1);
 		}
 		else if (type == "linear_lstm")
 		{
-			layer = new LstmLayer<Tanh, Identity, Logistic>(name, directions, size, &weightContainer, 1);
+			layer = new LstmLayer<Tanh, Identity, Logistic>(name, directions, size, &weightContainer, &dataExportHandler, 1);
 		}
 		else
 		{

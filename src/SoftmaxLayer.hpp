@@ -31,8 +31,8 @@ struct SoftmaxLayer: public OutputLayer
 	SeqBuffer<double> unnormedActivations;
 	
 	//functions
-	SoftmaxLayer(const string& name, size_t numSeqDims, size_t size, WeightContainer* wc):
-		OutputLayer(name, numSeqDims, size, wc),
+	SoftmaxLayer(const string& name, size_t numSeqDims, size_t size, WeightContainer* wc, DataExportHandler* dEH):
+		OutputLayer(name, numSeqDims, size, wc, dEH),
 		logActivations(size),
 		unnormedlogActivations(size),
 		unnormedActivations(size)

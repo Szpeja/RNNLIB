@@ -25,8 +25,8 @@ namespace rnnlib {
 struct SamplingLayer: public Layer
 {
 	//functions
-	SamplingLayer(Layer* src, WeightContainer* wc):
-		Layer(src->name + "_sample", src->num_seq_dims(), 0, src->output_size(), wc, src)
+	SamplingLayer(Layer* src, WeightContainer* wc, DataExportHandler* dEH):
+		Layer(src->name + "_sample", src->num_seq_dims(), 0, src->output_size(), wc, dEH, src)
 	{
 		//TODO assert that source has activations bounded between 0 and 1 (logistic or lstm)
 		display(this->outputActivations, "activations");

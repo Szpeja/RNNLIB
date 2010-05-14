@@ -33,8 +33,8 @@ struct BlockLayer: public Layer
 	vector<size_t> outSeqShape;
 		
 	//functions
-	BlockLayer(Layer* src, const vector<size_t>& blockshape, WeightContainer* wc):
-		Layer(src->name + "_block", src->num_seq_dims(), 0, product(blockshape) * src->output_size(), wc, src),
+	BlockLayer(Layer* src, const vector<size_t>& blockshape, WeightContainer* wc, DataExportHandler* dEH):
+		Layer(src->name + "_block", src->num_seq_dims(), 0, product(blockshape) * src->output_size(), wc, dEH, src),
 		blockShape(blockshape),
 		blockOffset(this->num_seq_dims()),
 		inCoords(this->num_seq_dims()),

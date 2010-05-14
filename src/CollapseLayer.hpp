@@ -31,8 +31,8 @@ struct CollapseLayer: public Layer
 	vector<size_t> outSeqShape;
 	
 	//functions
-	CollapseLayer(Layer* src, Layer* des, WeightContainer* wc, const vector<bool>& activDims = list_of<bool>()):
-		Layer(des->name + "_collapse", des->directions, des->input_size(), des->input_size(), wc, src),
+	CollapseLayer(Layer* src, Layer* des, WeightContainer* wc, DataExportHandler* dEH, const vector<bool>& activDims = list_of<bool>()):
+		Layer(des->name + "_collapse", des->directions, des->input_size(), des->input_size(), wc, dEH, src),
 		activeDims(activDims)
 	{
 		activeDims.resize(src->num_seq_dims(), false);

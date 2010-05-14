@@ -35,8 +35,8 @@ struct ClassificationLayer: public SoftmaxLayer
 	vector<pair<double, int> >labelProbs;
 	
 	//functions
-	ClassificationLayer(ostream& o, const string& name, size_t numSeqDims, const bimap<int, string>& lab, WeightContainer* wc):
-		SoftmaxLayer(name, numSeqDims, lab.size(), wc),
+	ClassificationLayer(ostream& o, const string& name, size_t numSeqDims, const bimap<int, string>& lab, WeightContainer* wc, DataExportHandler* dEH):
+		SoftmaxLayer(name, numSeqDims, lab.size(), wc, dEH),
 		out(o),
 		labels(lab),
 		targets(this->output_size()),	

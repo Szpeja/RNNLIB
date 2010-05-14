@@ -53,8 +53,8 @@ template <class CI, class CO, class G> struct LstmLayer: public Layer
 #endif		
 	
 	//functions
-	LstmLayer(const string& name, const vector<int>& directions, size_t nb, WeightContainer* wc, size_t cpb = 1):
-			Layer(name, directions, (cpb + directions.size() + 2) * nb, nb, wc),	
+	LstmLayer(const string& name, const vector<int>& directions, size_t nb, WeightContainer* wc, DataExportHandler* dEH, size_t cpb = 1):
+		Layer(name, directions, (cpb + directions.size() + 2) * nb, nb, wc, dEH),	
 			numBlocks(nb),
 			cellsPerBlock(cpb),
 			numCells(numBlocks * cellsPerBlock),

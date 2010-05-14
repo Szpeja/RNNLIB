@@ -152,11 +152,11 @@ struct DataExportHandler
 	map<string, DataExporter*> dataExporters;
 	
 	//functions
-	static DataExportHandler& instance()
+	/*static DataExportHandler& instance()
 	{
 		static DataExportHandler d;
 		return d;
-	}
+	}*/
 	void save(ostream& out) const;
 	void load(ConfigFile& conf, ostream& out = cout);
 	void display(const string& path) const;
@@ -173,12 +173,14 @@ struct DataExporter: public Named
 	//data
 	map<string, Val*> saveVals;
 	map<string, Val*> displayVals;
+	DataExportHandler* dataExportHandler;
 	
 	//functions
-	DataExporter(const string& name):
-		Named(name)
+	DataExporter(const string& name, DataExportHandler* dEH):
+		Named(name), dataExportHandler (dEH)
 	{
- 		DataExportHandler::instance().dataExporters[name] = this;
+ 		//DataExportHandler::instance().dataExporters[name] = this;
+		dataExportHandler->dataExporters[name] = this;
 	}
 	~DataExporter()
 	{

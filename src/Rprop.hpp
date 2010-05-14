@@ -47,8 +47,8 @@ struct Rprop: public DataExporter, public Optimiser
 	WeightContainer* weightContainer;
 
 	//functions
-	Rprop(ostream& o, WeightContainer* wc,  bool on = false, const string& name = "optimiser"):
-		DataExporter(name),
+	Rprop(ostream& o, WeightContainer* wc, DataExportHandler* dEH, bool on = false, const string& name = "optimiser"):
+		DataExporter(name, dEH),
 		out(o),
 		etaChange(0.01),
 		etaMin(0.5),

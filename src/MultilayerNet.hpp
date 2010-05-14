@@ -51,13 +51,13 @@ struct MultilayerNet: public Mdrnn
 			{
 				loop(Layer* l, hiddenLevels[i])
 				{
-					blocks += this->add_layer(new BlockLayer(l, hiddenBlocks.at(i), &weightContainer));
+					blocks += this->add_layer(new BlockLayer(l, hiddenBlocks.at(i), &weightContainer, &dataExportHandler));
 				}
 			}
 			vector<Layer*>& topLayers = blocks.size() ? blocks : hiddenLevels[i];
 			if (i < subsampleSizes.size())
 			{
-				in = this->add_layer(new NeuronLayer<Tanh>("subsample_" + str(i), this->num_seq_dims(), subsampleSizes.at(i), &weightContainer));
+				in = this->add_layer(new NeuronLayer<Tanh>("subsample_" + str(i), this->num_seq_dims(), subsampleSizes.at(i), &weightContainer, &dataExportHandler));
 				loop(Layer* l, topLayers)
 				{
 					this->connect_layers(l, in);
@@ -65,7 +65,7 @@ struct MultilayerNet: public Mdrnn
 			}
 			else if (i < last_index(hiddenSizes))
 			{
-				in = this->add_layer(new GatherLayer("gather_" + str(i), topLayers, &weightContainer));
+				in = this->add_layer(new GatherLayer("gather_" + str(i), topLayers, &weightContainer, &dataExportHandler));
 			}
 		}
 		string task = conf.get<string>("task");
@@ -73,11 +73,11 @@ struct MultilayerNet: public Mdrnn
 		Layer* output;
 		if (task == "regression")
 		{
-			output = this->outputLayer = new RegressionLayer(this->out, outputName, this->num_seq_dims(), data.outputSize, &weightContainer);
+			output = this->outputLayer = new RegressionLayer(this->out, outputName, this->num_seq_dims(), data.outputSize, &weightContainer, &dataExportHandler);
 		}
 		else if (task == "sequence_regression")
 		{
- 			output = this->outputLayer = new RegressionLayer(this->out, outputName, 0, data.outputSize, &weightContainer);
+ 			output = this->outputLayer = new RegressionLayer(this->out, outputName, 0, data.outputSize, &weightContainer, &dataExportHandler);
 			if (this->num_seq_dims())
 			{
 				output = this->collapse_layer(this->hiddenLayers.back(), this->outputLayer);
@@ -85,15 +85,15 @@ struct MultilayerNet: public Mdrnn
 		}
 		else if (task == "autoassociation")
 		{
-			output = this->outputLayer = new AutoregressionLayer(outputName, this->get_input(), &weightContainer);
+			output = this->outputLayer = new AutoregressionLayer(outputName, this->get_input(), &weightContainer, &dataExportHandler);
 		}
 		else if (task == "classification")
 		{
-			output = this->outputLayer = new ClassificationLayer(this->out, outputName, this->num_seq_dims(), data.targetLabels, &weightContainer);
+			output = this->outputLayer = new ClassificationLayer(this->out, outputName, this->num_seq_dims(), data.targetLabels, &weightContainer, &dataExportHandler);
 		}
  		else if (task == "sequence_classification")
  		{
- 			output = this->outputLayer = new ClassificationLayer(this->out, outputName, 0, data.targetLabels, &weightContainer);
+ 			output = this->outputLayer = new ClassificationLayer(this->out, outputName, 0, data.targetLabels, &weightContainer, &dataExportHandler);
 			if (this->num_seq_dims())
 			{
 				output = this->collapse_layer(this->hiddenLayers.back(), this->outputLayer);
@@ -102,7 +102,7 @@ struct MultilayerNet: public Mdrnn
  		else if (task == "transcription")
  		{
 			assert(this->num_seq_dims());
- 			output = this->outputLayer = new TranscriptionLayer(this->out, outputName, data.targetLabels, &weightContainer);
+ 			output = this->outputLayer = new TranscriptionLayer(this->out, outputName, data.targetLabels, &weightContainer, &dataExportHandler);
 			if (this->num_seq_dims() > 1)
 			{
 				output = this->collapse_layer(this->hiddenLayers.back(), this->outputLayer, list_of(true));
@@ -111,8 +111,7 @@ struct MultilayerNet: public Mdrnn
  		else if (task == "decode")
  		{
 			assert(this->num_seq_dims());
- 			output = this->outputLayer = new DecodingLayer(this->out, outputName, data.targetLabels, conf.get<string>("dictionary", ""), &weightContainer,
-																conf.get<string>("bigrams", ""), conf.get<int>("nBest", 1), conf.get<int>("fixedLength", -1));
+ 			output = this->outputLayer = new DecodingLayer(this->out, outputName, data.targetLabels, conf.get<string>("dictionary", ""), &weightContainer, &dataExportHandler, conf.get<string>("bigrams", ""), conf.get<int>("nBest", 1), conf.get<int>("fixedLength", -1));
 			if (this->num_seq_dims() > 1)
 			{
 				output = this->collapse_layer(this->hiddenLayers.back(), this->outputLayer, list_of(true));
